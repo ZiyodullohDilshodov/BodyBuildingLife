@@ -1,4 +1,5 @@
 using BodyBuildingLife.Data.DbContexts;
+using BodyBuildingLife.Service.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 namespace BodyBuildingLife.Api
@@ -17,7 +18,7 @@ namespace BodyBuildingLife.Api
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+            builder.Services.AddAutoMapper(typeof(MapperProfile));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
