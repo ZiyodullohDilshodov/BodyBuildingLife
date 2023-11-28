@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using BodyBuildingLife.Data.IRepositories;
+using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Domain.Entities.Cards;
 using BodyBuildingLife.Service.DTOs.CardDTOs;
-using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Service.Interfaces.Card;
-using Microsoft.EntityFrameworkCore;
 
 namespace BodyBuildingLife.Service.Services;
 
@@ -27,6 +27,7 @@ public class CardService : ICardService
     {
        var checkPerson = await _personRepository.RetriveAllAsync()
             .Where(p=>p.PasportSeriaNumber == forCreationDto.PasportSeriaNumber)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if (checkPerson is null)
@@ -97,19 +98,31 @@ public class CardService : ICardService
     {
         var checkCard = await _cardRepository.RetriveAllAsync()
             .Where(c => c.Id == cardId)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
-        if (checkCard == null)
+        if (checkCard == null || checkCard.IsDeleted==true)
             new BodyBuildingLifeException(404, "Card is not found");
 
-        bool deleted = checkCard.IsDeleted = true;
         checkCard.CardIsBloced = true;
+        checkCard.UpdateAtt = DateTime.UtcNow;
+        bool deleted = checkCard.IsDeleted = true;
 
-        return deleted;
+        var mappedCardData = _mapper.Map<Card>(checkCard);
+        var result = await _cardRepository.UpdateAsync(mappedCardData);
+
+        if(result.IsDeleted == false)
+            return false;
+        else
+            return true;
+        
     }
 
     public async Task<IEnumerable<CardForResultDto>> RetrieveAllAsync()
     {
-        var cardData = _cardRepository.RetriveAllAsync();
+        var cardData =await _cardRepository.RetriveAllAsync()
+            .Where(card=>card.IsDeleted == false)
+            .AsNoTracking()
+            .ToListAsync();
 
         var resultMappedCardData = _mapper.Map<IEnumerable<CardForResultDto>>(cardData);
 
@@ -118,7 +131,11 @@ public class CardService : ICardService
 
     public async Task<CardForResultDto> RetruveByIdAsync(long id)
     {
-        var searchCard = await _cardRepository.GetByIdAsync(id);
+        var searchCard = await _cardRepository.RetriveAllAsync()
+            .Where(card=>card.Id==id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
         if (searchCard == null)
             new BodyBuildingLifeException(404, "Card is not found");
 
