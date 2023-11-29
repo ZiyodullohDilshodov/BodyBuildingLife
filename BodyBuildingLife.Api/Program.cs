@@ -1,4 +1,5 @@
 using BodyBuildingLife.Data.DbContexts;
+using BodyBuildingLife.Service.Helpers;
 using BodyBuildingLife.Service.Mappers;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,8 @@ namespace BodyBuildingLife.Api
             builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddAutoMapper(typeof(MapperProfile));
             var app = builder.Build();
+
+            WebHostEnvarement.WebRootPath = Path.GetFullPath("wwwroot");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

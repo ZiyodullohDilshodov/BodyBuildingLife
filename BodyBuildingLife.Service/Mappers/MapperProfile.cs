@@ -11,6 +11,7 @@ using BodyBuildingLife.Domain.Entities.ProtainPersons;
 using BodyBuildingLife.Service.DTOs.PersonProtainDTOs;
 using BodyBuildingLife.Service.DTOs.PersonTrainerDTOs;
 using BodyBuildingLife.Domain.Entities.PersonTreainers;
+using BodyBuildingLife.Service.DTOs.Person;
 
 namespace BodyBuildingLife.Service.Mappers;
 

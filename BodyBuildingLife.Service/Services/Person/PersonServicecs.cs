@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using BodyBuildingLife.Data.IRepositories;
 using BodyBuildingLife.Service.Exceptions;
+using BodyBuildingLife.Service.DTOs.Person;
 using BodyBuildingLife.Domain.Entities.Persons;
 using BodyBuildingLife.Service.DTOs.PersonDTOs;
 using BodyBuildingLife.Service.Interfaces.Person;
@@ -62,6 +63,9 @@ public class PersonServicecs : IPersonService
     {
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.IsDeleted==false)
+            .Include(p=>p.PersonAssets)
+            .Include(p=>p.Protains)
+            .Include(p=>p.Cards)
             .AsNoTracking()
             .ToListAsync();
         return  _mapper.Map<IEnumerable<PersonForResultDto>>(personData);
@@ -72,6 +76,9 @@ public class PersonServicecs : IPersonService
     {
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.Id==id)
+            .Include(p=>p.PersonAssets)
+            .Include(p=>p.Protains)
+            .Include(p=>p.Cards)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -85,6 +92,9 @@ public class PersonServicecs : IPersonService
     {
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.Id==forUpdateDto.Id)
+            .Include (p=>p.PersonAssets)
+            .Include(p=>p.Protains)
+            .Include(p => p.Cards)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

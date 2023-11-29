@@ -1,4 +1,5 @@
-﻿using BodyBuildingLife.Service.DTOs.PersonDTOs;
+﻿using BodyBuildingLife.Service.DTOs.Person;
+using BodyBuildingLife.Service.DTOs.PersonDTOs;
 
 namespace BodyBuildingLife.Service.Interfaces.Person;
 
