@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using BodyBuildingLife.Data.IRepositories;
+using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Domain.Entities.ProtainPersons;
 using BodyBuildingLife.Service.DTOs.PersonProtainDTOs;
-using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Service.Interfaces.PersonProtain;
-using Microsoft.EntityFrameworkCore;
 
 namespace BodyBuildingLife.Service.Services;
 
@@ -44,6 +44,16 @@ public class PersonProtainService : IPersonProtainService
         if (protainData is null || protainData.IsDeleted == true)
             throw new BodyBuildingLifeException(404, "Protain is not found");
 
+
+        var selection = await _personProtainRepository.RetriveAllAsync().ToListAsync();
+        foreach(var item in selection)
+        {
+            if (item.PersonId == forCreationDto.PersonID && item.ProtainId == forCreationDto.ProtainID)
+                throw new BodyBuildingLifeException(404, "PersonProtain alrwady exists");
+                
+        }    
+
+
         var mappedData = _mapper.Map<PersonProtain>(forCreationDto);
         mappedData.CreateAtt = DateTime.UtcNow;
         var response = await _personProtainRepository.CreateAsync(mappedData);
@@ -66,15 +76,21 @@ public class PersonProtainService : IPersonProtainService
 
     public async Task<IEnumerable<PersonProtainForResultDto>> RetrieveAllAsync()
     {
-        var personProtain = _personProtainRepository.RetriveAllAsync();
-        return   _mapper.Map<IEnumerable<PersonProtainForResultDto>>(personProtain);
+        var personProtain = await  _personProtainRepository.RetriveAllAsync()
+            .Include(p=>p.Person)
+            .Include(p=>p.Protain)
+            .AsNoTracking()
+            .ToListAsync();
 
+        return _mapper.Map<IEnumerable<PersonProtainForResultDto>>(personProtain);
     }
 
     public async Task<PersonProtainForResultDto> RetruveByIdAsync(long id)
     {
         var personProtain = await _personProtainRepository.RetriveAllAsync()
             .Where (pp => pp.Id == id)
+            .Include(p=>p.Person)
+            .Include(p=>p.Protain)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

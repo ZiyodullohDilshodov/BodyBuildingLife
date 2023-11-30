@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using BodyBuildingLife.Data.IRepositories;
 using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Service.DTOs.Person;
-using BodyBuildingLife.Domain.Entities.Persons;
 using BodyBuildingLife.Service.DTOs.PersonDTOs;
+using BodyBuildingLife.Domain.Entities.Persons;
 using BodyBuildingLife.Service.Interfaces.Person;
 
 namespace BodyBuildingLife.Service.Services;

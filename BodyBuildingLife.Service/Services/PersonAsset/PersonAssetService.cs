@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using BodyBuildingLife.Service.DTOs.PersonAsset;
-using BodyBuildingLife.Service.Interfaces.IPersonAsset;
-using AutoMapper;
-using BodyBuildingLife.Data.IRepositories;
-using BodyBuildingLife.Service.Exceptions;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using BodyBuildingLife.Service.Helpers;
+using BodyBuildingLife.Service.Exceptions;
+using BodyBuildingLife.Data.IRepositories;
 using BodyBuildingLife.Domain.Entities.Assets;
+using BodyBuildingLife.Service.DTOs.PersonAsset;
+using BodyBuildingLife.Service.Interfaces.IPersonAsset;
 
 namespace BodyBuildingLife.Service.Services;
 
@@ -36,7 +36,7 @@ public class PersonAssetService : IPersonAssetService
             throw new BodyBuildingLifeException(404, "Person is not found");
 
         var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(formFile.FileName);
-        var rootPath = Path.Combine(WebHostEnvarement.WebRootPath, "Media", "ProfilePictures", "Persons", fileName);
+        var rootPath = Path.Combine(WebHostEnvarement.WebRootPath, "Media", "PersonAssets", "PersonImmage", fileName);
 
         using (var stream = new FileStream(rootPath, FileMode.Create))
         {
@@ -53,7 +53,7 @@ public class PersonAssetService : IPersonAssetService
             Type = formFile.ContentType,
             CreateAtt = DateTime.UtcNow,
             Extension = Path.GetExtension(formFile.FileName),
-            Path = Path.Combine("Media", "ProfilePictures", "Channels", formFile.FileName)
+            Path = Path.Combine("Media", "PersonAssets", "PersonImmage", formFile.FileName)
         };
 
         var result = await _personAssetRepository.CreateAsync(mappedAsset);
