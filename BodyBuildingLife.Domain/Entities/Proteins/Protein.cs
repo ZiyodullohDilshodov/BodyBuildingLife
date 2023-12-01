@@ -12,5 +12,5 @@ public  class Protein : Auditable
     public string ValidityPeriod { get; set; }
 
     public long ProteinStandardsId { get; set; }
-    public ProteinStandards ProteinStandards { get; set; }
+    public ICollection<ProteinStandards> ProteinStandards { get; set; }
 }

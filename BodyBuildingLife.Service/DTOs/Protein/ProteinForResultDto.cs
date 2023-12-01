@@ -1,4 +1,6 @@
-﻿namespace BodyBuildingLife.Service.DTOs.ProtainDTOs;
+﻿using BodyBuildingLife.Service.DTOs.Standards;
+
+namespace BodyBuildingLife.Service.DTOs.ProtainDTOs;
 
 public  class ProtainForResultDto
 {
@@ -10,4 +12,6 @@ public  class ProtainForResultDto
     public DateTime CreateAtt { get; set; }
     public DateTime UpdateAtt { get; set; }
     public string ValidityPeriod { get; set; }
+
+    public ICollection<ProteinStandardsForResultDto> ProteinStandards { get; set; }
 }

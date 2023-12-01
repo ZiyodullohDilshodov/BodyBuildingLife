@@ -1,6 +1,7 @@
 ﻿using BodyBuildingLife.Service.DTOs.CardDTOs;
 using BodyBuildingLife.Service.DTOs.PersonAsset;
 using BodyBuildingLife.Service.DTOs.ProtainDTOs;
+using BodyBuildingLife.Service.DTOs.Standards;
 
 namespace BodyBuildingLife.Service.DTOs.Person;
 public  class PersonForResultDto
@@ -16,4 +17,5 @@ public  class PersonForResultDto
     public ICollection<CardForResultDto> Cards { get; set; }
     public ICollection<ProtainForResultDto> Proteins { get; set; }
     public ICollection<PersonAssetForResultDto> PersonAssets { get; set; }
+    public ICollection<ProteinStandardsForResultDto> ProteinStandards { get; set; }
 }
