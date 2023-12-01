@@ -8,12 +8,12 @@ using BodyBuildingLife.Service.Interfaces.Protain;
 
 namespace BodyBuildingLife.Service.Services;
 
-public class ProtainService : IProtainService
+public class ProteinService : IProteinService
 {
     private readonly IMapper _mapper;
-    private readonly IProtainRepository _protainRepository;
+    private readonly IProteinRepository _protainRepository;
 
-    public ProtainService(IMapper mapper, IProtainRepository protainRepository)
+    public ProteinService(IMapper mapper, IProteinRepository protainRepository)
     {
         _mapper = mapper;
         _protainRepository = protainRepository;
@@ -29,7 +29,7 @@ public class ProtainService : IProtainService
         if (protain is not null)
             throw new BodyBuildingLifeException(409, "Protain  already exists");
 
-        var mappedProtain = _mapper.Map<Protain>(protain);
+        var mappedProtain = _mapper.Map<Protein>(protain);
         var createProtain = await _protainRepository.CreateAsync(mappedProtain);
 
         return _mapper.Map<ProtainForResultDto>(createProtain);
@@ -79,7 +79,7 @@ public class ProtainService : IProtainService
         if (protain is null)
             throw new BodyBuildingLifeException(404, "Protain is not found");
 
-        var mappedProtain = _mapper.Map<Protain>(protain);
+        var mappedProtain = _mapper.Map<Protein>(protain);
         var updateProtain = await _protainRepository.UpdateAsync(mappedProtain);
 
         return _mapper.Map<ProtainForResultDto>(updateProtain);

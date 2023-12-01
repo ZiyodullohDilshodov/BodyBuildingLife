@@ -14,6 +14,6 @@ public class Person : Auditable
     public string  PasportSeriaNumber { get; set; }
 
     public ICollection<Card> Cards { get; set; }
-    public ICollection<Protain> Protains { get; set; }
+    public ICollection<Protein> Proteins { get; set; }
     public ICollection<PersonAsset> PersonAssets { get; set; }
 }

@@ -4,10 +4,10 @@ using BodyBuildingLife.Domain.Entities.Protains;
 
 namespace BodyBuildingLife.Domain.Entities.ProtainPersons;
 
-public class PersonProtain : Auditable
+public class PersonProtein : Auditable
 {
-    public long ProtainId { get; set; }
-    public Protain Protain { get; set; }
+    public long ProteinId { get; set; }
+    public Protein Protein { get; set; }
 
     public long PersonId { get; set; }
     public Person Person { get; set; }

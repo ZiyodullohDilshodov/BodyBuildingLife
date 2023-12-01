@@ -2,6 +2,6 @@
 
 namespace BodyBuildingLife.Data.IRepositories;
 
-public  interface IProtainRepository : IRepository<Protain>
+public  interface IProteinRepository : IRepository<Protein>
 {
 }

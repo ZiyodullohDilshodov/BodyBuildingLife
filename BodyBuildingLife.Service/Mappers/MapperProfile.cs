@@ -27,9 +27,9 @@ public  class MapperProfile : Profile
         CreateMap<Person,PersonForUpdateDto>().ReverseMap();
         CreateMap<Person,PersonForCreationDto>().ReverseMap();
 
-        CreateMap<Protain, ProtainForResultDto>().ReverseMap();
-        CreateMap<Protain, ProtainForUpdateDto>().ReverseMap();
-        CreateMap<Protain, ProtainForCreationDto>().ReverseMap();
+        CreateMap<Protein, ProtainForResultDto>().ReverseMap();
+        CreateMap<Protein, ProtainForUpdateDto>().ReverseMap();
+        CreateMap<Protein, ProtainForCreationDto>().ReverseMap();
 
         CreateMap<Trainer, TrainerForResultDto>().ReverseMap();
         CreateMap<Trainer, TrainerForUpdateDto>().ReverseMap();
@@ -39,9 +39,9 @@ public  class MapperProfile : Profile
         CreateMap<PersonTrainer, PersonTrainerForUpdateDto>().ReverseMap();
         CreateMap<PersonTrainer, PersonTrainerForCreationDto>().ReverseMap();
 
-        CreateMap<PersonProtain, PersonProtainForResultDto>().ReverseMap();
-        CreateMap<PersonProtain, PersonProtainForUpdateDto>().ReverseMap();
-        CreateMap<PersonProtain, PersonProtainForCreationDto>().ReverseMap();
+        CreateMap<PersonProtein, PersonProtainForResultDto>().ReverseMap();
+        CreateMap<PersonProtein, PersonProtainForUpdateDto>().ReverseMap();
+        CreateMap<PersonProtein, PersonProtainForCreationDto>().ReverseMap();
 
     }
 }

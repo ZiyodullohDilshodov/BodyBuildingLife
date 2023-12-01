@@ -8,18 +8,18 @@ using BodyBuildingLife.Service.Interfaces.PersonProtain;
 
 namespace BodyBuildingLife.Service.Services;
 
-public class PersonProtainService : IPersonProtainService
+public class PersonProteinService : IPersonProteinService
 {
     private readonly IMapper _mapper;
     private readonly IPersonRepository _personRepository;
-    private readonly IProtainRepository _protainRepository;
-    private readonly IPersonProtainRepository _personProtainRepository;
+    private readonly IProteinRepository _protainRepository;
+    private readonly IPersonProteinRepository _personProtainRepository;
 
 
 
-    public PersonProtainService(IMapper mapper,
+    public PersonProteinService(IMapper mapper,
                                 IPersonRepository personRepository, 
-                                IProtainRepository protainRepository)
+                                IProteinRepository protainRepository)
     {
         _mapper = mapper;
         _personRepository = personRepository;
@@ -37,7 +37,7 @@ public class PersonProtainService : IPersonProtainService
             throw new BodyBuildingLifeException(404, "Person is not found");
 
         var protainData = await _protainRepository.RetriveAllAsync()
-            .Where(protain=>protain.Id == forCreationDto.ProtainID)
+            .Where(protain=>protain.Id == forCreationDto.ProteinID)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -48,13 +48,13 @@ public class PersonProtainService : IPersonProtainService
         var selection = await _personProtainRepository.RetriveAllAsync().ToListAsync();
         foreach(var item in selection)
         {
-            if (item.PersonId == forCreationDto.PersonID && item.ProtainId == forCreationDto.ProtainID)
+            if (item.PersonId == forCreationDto.PersonID && item.ProteinId == forCreationDto.ProteinID)
                 throw new BodyBuildingLifeException(404, "PersonProtain alrwady exists");
                 
         }    
 
 
-        var mappedData = _mapper.Map<PersonProtain>(forCreationDto);
+        var mappedData = _mapper.Map<PersonProtein>(forCreationDto);
         mappedData.CreateAtt = DateTime.UtcNow;
         var response = await _personProtainRepository.CreateAsync(mappedData);
         return _mapper.Map<PersonProtainForResultDto>(response);
@@ -78,7 +78,7 @@ public class PersonProtainService : IPersonProtainService
     {
         var personProtain = await  _personProtainRepository.RetriveAllAsync()
             .Include(p=>p.Person)
-            .Include(p=>p.Protain)
+            .Include(p=>p.Protein)
             .AsNoTracking()
             .ToListAsync();
 
@@ -90,7 +90,7 @@ public class PersonProtainService : IPersonProtainService
         var personProtain = await _personProtainRepository.RetriveAllAsync()
             .Where (pp => pp.Id == id)
             .Include(p=>p.Person)
-            .Include(p=>p.Protain)
+            .Include(p=>p.Protein)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -119,14 +119,14 @@ public class PersonProtainService : IPersonProtainService
             throw new BodyBuildingLifeException(404, "Person is not found");
 
         var selectionProtain = await _protainRepository.RetriveAllAsync()
-            .Where(p => p.Id == forUpdateDto.ProtainID)
+            .Where(p => p.Id == forUpdateDto.ProteinID)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if (selectionProtain is null || selectionProtain.IsDeleted == true)
             throw new BodyBuildingLifeException(404, "Protain is not found");
 
-        var mappedData = _mapper.Map<PersonProtain>(forUpdateDto);
+        var mappedData = _mapper.Map<PersonProtein>(forUpdateDto);
         mappedData.UpdateAtt = DateTime.UtcNow;
         var responseData = _personProtainRepository.UpdateAsync(mappedData);
 

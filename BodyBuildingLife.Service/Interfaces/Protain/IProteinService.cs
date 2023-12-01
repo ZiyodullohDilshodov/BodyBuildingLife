@@ -2,9 +2,9 @@
 
 namespace BodyBuildingLife.Service.Interfaces.Protain;
 
-public  interface IProtainService
+public  interface IProteinService
 {
-    public Task<bool> DeleteAsync(long protainId);
+    public Task<bool> DeleteAsync(long proteinId);
     public Task<ProtainForResultDto> RetruveByIdAsync(long id);
     public Task<IEnumerable<ProtainForResultDto>> RetrieveAllAsync();
     public Task<ProtainForResultDto> UpdateAsync(ProtainForUpdateDto forUpdateDto);

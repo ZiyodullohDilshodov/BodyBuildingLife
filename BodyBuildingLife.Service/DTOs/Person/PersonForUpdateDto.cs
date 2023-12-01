@@ -9,5 +9,4 @@ public  class PersonForUpdateDto
     public long SportsCardId { get; set; }
     public string PasportSeriaNumber { get; set; }
 
-
 }

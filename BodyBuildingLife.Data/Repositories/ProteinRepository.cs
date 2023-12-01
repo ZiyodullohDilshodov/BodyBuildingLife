@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BodyBuildingLife.Data.Repositories;
 
-public class ProtainRepository : Repository<Protain>, IProtainRepository
+public class ProteinRepository : Repository<Protein>, IProteinRepository
 {
-    public ProtainRepository(AppDbContext appDbContext, DbSet<Protain> dbSet) : base(appDbContext, dbSet)
+    public ProteinRepository(AppDbContext appDbContext, DbSet<Protein> dbSet) : base(appDbContext, dbSet)
     {
     }
 }

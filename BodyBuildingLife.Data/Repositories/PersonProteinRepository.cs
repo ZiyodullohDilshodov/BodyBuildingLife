@@ -5,9 +5,9 @@ using BodyBuildingLife.Domain.Entities.ProtainPersons;
 
 namespace BodyBuildingLife.Data.Repositories;
 
-public class PersonProtainRepository : Repository<PersonProtain>, IPersonProtainRepository
+public class PersonProteinRepository : Repository<PersonProtein>, IPersonProteinRepository
 {
-    public PersonProtainRepository(AppDbContext appDbContext, DbSet<PersonProtain> dbSet) : base(appDbContext, dbSet)
+    public PersonProteinRepository(AppDbContext appDbContext, DbSet<PersonProtein> dbSet) : base(appDbContext, dbSet)
     {
     }
 }

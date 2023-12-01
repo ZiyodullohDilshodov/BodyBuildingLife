@@ -3,5 +3,5 @@
 public  class PersonProtainForCreationDto
 {
     public long PersonID { get; set; }
-    public long ProtainID { get; set; }
+    public long ProteinID { get; set; }
 }
