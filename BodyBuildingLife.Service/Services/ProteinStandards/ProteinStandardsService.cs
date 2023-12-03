@@ -44,6 +44,7 @@ public class ProteinStandardsService : IProteinStandardsService
             throw new BodyBuildingLifeException(404, "Protein is not found");
 
         var mapped = _mapper.Map<ProteinStandards>(proteinStandardsForResultDto);
+        mapped.CreateAtt = DateTime.UtcNow;
         var createPersonStandards = await  _proteinStandardsRepository.CreateAsync(mapped);
         return _mapper.Map<ProteinStandardsForResultDto>(createPersonStandards);
     }
@@ -148,6 +149,7 @@ public class ProteinStandardsService : IProteinStandardsService
             throw new BodyBuildingLifeException(404, "ProteinStandards is not found");
 
         var mapped = _mapper.Map<ProteinStandards>(proteinStandardsForResultDto);
+        mapped.UpdateAtt = DateTime.UtcNow;
         var updateProteinStandards = await _proteinStandardsRepository.UpdateAsync(mapped);
         return _mapper.Map<ProteinStandardsForResultDto>(updateProteinStandards);
     }

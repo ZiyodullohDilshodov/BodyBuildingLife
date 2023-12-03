@@ -7,6 +7,7 @@ using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Domain.Entities.Assets;
 using BodyBuildingLife.Service.DTOs.TrainerAsset;
 using BodyBuildingLife.Service.Interfaces.TrainerAsset;
+using BodyBuildingLife.Domain.Entities.Trainers;
 
 namespace BodyBuildingLife.Service.Services;
 
@@ -36,7 +37,7 @@ public class TrainerAssetService : ITrainerAssetService
             throw new BodyBuildingLifeException(404, "Person is not found");
 
         var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(formFile.FileName);
-        var rootPath = Path.Combine(WebHostEnvarement.WebRootPath, "Media", "TrainerAssets", "Trainers", fileName);
+        var rootPath = Path.Combine(WebHostEnvarement.WebRootPath, "Media", "Trainers", "TrainerAssets", fileName);
 
         using (var stream = new FileStream(rootPath, FileMode.Create))
         {
@@ -53,8 +54,8 @@ public class TrainerAssetService : ITrainerAssetService
             Type = formFile.ContentType,
             CreateAtt = DateTime.UtcNow,
             Extension = Path.GetExtension(formFile.FileName),
-            Path = Path.Combine("Media", "TrainerAssets", "Trainers", formFile.FileName)
-        };
+            Path = Path.Combine("Media", "Trainers", "TrainerAssets", formFile.FileName)
+        }; 
 
         var result = await _trainerAssetRepository.CreateAsync(mappedAsset);
 

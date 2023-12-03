@@ -30,6 +30,7 @@ public class TrainerService : ITrainerService
             throw new BodyBuildingLifeException(409, "Trainer already exists");
 
         var mappedTrainer = _mapper.Map<Trainer>(trainer);
+        mappedTrainer.CreateAtt = DateTime.UtcNow;
         var createTrainer = await _trainerRepository.CreateAsync(mappedTrainer);
         return _mapper.Map<TrainerForResultDto>(createTrainer);
 
@@ -52,7 +53,6 @@ public class TrainerService : ITrainerService
     public async Task<IEnumerable<TrainerForResultDto>> RetrieveAllAsync()
     {
         var tariners = await _trainerRepository.RetriveAllAsync()
-            .Include(p => p.Persons)
             .AsNoTracking()
             .ToListAsync();
 
@@ -64,7 +64,6 @@ public class TrainerService : ITrainerService
     {
         var trainer = await _trainerRepository.RetriveAllAsync()
             .Where(t => t.Id == id)
-            .Include(t => t.Persons)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -85,6 +84,7 @@ public class TrainerService : ITrainerService
             throw new BodyBuildingLifeException(404, "Trainer is not found");
 
         var updateTrainer = await _trainerRepository.UpdateAsync(trainer);
+        updateTrainer.UpdateAtt = DateTime.UtcNow;
         return _mapper.Map<TrainerForResultDto>(updateTrainer);
         
     }

@@ -9,4 +9,5 @@ public  class ProteinStandardsForResultDto
     public string Description { get; set; }
     public string ConsumptionTimes { get; set; }
     public string ConsumptionVolume { get; set; }
+
 }

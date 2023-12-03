@@ -12,9 +12,10 @@ namespace BodyBuildingLife.Service.Services;
 
 public class PersonAssetService : IPersonAssetService
 {
+
     private readonly IMapper _mapper;
-    private readonly IPersonAssetRepository _personAssetRepository;
     private readonly IPersonRepository _personRepository;
+    private readonly IPersonAssetRepository _personAssetRepository;
 
     public PersonAssetService(IMapper mapper,
                               IPersonRepository personRepository, 
@@ -36,7 +37,7 @@ public class PersonAssetService : IPersonAssetService
             throw new BodyBuildingLifeException(404, "Person is not found");
 
         var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(formFile.FileName);
-        var rootPath = Path.Combine(WebHostEnvarement.WebRootPath, "Media", "PersonAssets", "PersonImmage", fileName);
+        var rootPath = Path.Combine(WebHostEnvarement.WebRootPath, "Media", "Persons", "PersonImmage", fileName);
 
         using (var stream = new FileStream(rootPath, FileMode.Create))
         {
@@ -53,7 +54,7 @@ public class PersonAssetService : IPersonAssetService
             Type = formFile.ContentType,
             CreateAtt = DateTime.UtcNow,
             Extension = Path.GetExtension(formFile.FileName),
-            Path = Path.Combine("Media", "PersonAssets", "PersonImmage", formFile.FileName)
+            Path = Path.Combine("Media", "Persons", "PersonImmage", formFile.FileName)
         };
 
         var result = await _personAssetRepository.CreateAsync(mappedAsset);

@@ -89,8 +89,8 @@ public class PersonProteinService : IPersonProteinService
     {
         var personProtain = await _personProtainRepository.RetriveAllAsync()
             .Where (pp => pp.Id == id)
-            .Include(p=>p.Person)
             .Include(p=>p.Protein)
+            .Include(p=>p.Person)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

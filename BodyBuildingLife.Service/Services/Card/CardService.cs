@@ -49,47 +49,6 @@ public class CardService : ICardService
         var resultMappedCardData = _mapper.Map<CardForResultDto>(requestCardData);
         checkPerson.SportsCardId = resultMappedCardData.Id;
 
-        
-
-        string Generate4NumberValidityPeriod()
-        {
-            Random random = new Random();
-
-            int[] number_1 = new int[2];
-            for(int i = 1;i<2;i++)
-            {
-                int digit = random.Next(10);
-                number_1[i] = digit;
-            }
-
-            int[] number_2 = new int[2];
-            for (int i = 1; i < 2; i++)
-            {
-                int digit = random.Next(10);
-                number_2[i] = digit;
-            }
-
-            string validityPeriodNumber = number_1.ToString() + "/" + number_2.ToString();
-
-            return validityPeriodNumber;
-        }
-
-
-        string  Generate16DigitCardNumber()
-        {
-            Random random = new Random();
-
-            int[] number = new int[16];
-
-            for (int i = 0; i < 16; i++)
-            {
-                int digit = random.Next(10);
-
-                number[i] = digit;
-            }
-            return number.ToString();
-        }
-
         return resultMappedCardData;
 
     }
@@ -115,6 +74,44 @@ public class CardService : ICardService
         else
             return true;
         
+    }
+
+    public string Generate16DigitCardNumber()
+    {
+        Random random = new Random();
+
+        int[] number = new int[16];
+
+        for (int i = 0; i < 16; i++)
+        {
+            int digit = random.Next(10);
+
+            number[i] = digit;
+        }
+        return number.ToString();
+    }
+
+    public string Generate4NumberValidityPeriod()
+    {
+         Random random = new Random();
+
+            int[] number_1 = new int[2];
+            for(int i = 1;i<2;i++)
+            {
+                int digit = random.Next(10);
+                number_1[i] = digit;
+            }
+
+            int[] number_2 = new int[2];
+            for (int i = 1; i < 2; i++)
+            {
+                int digit = random.Next(10);
+                number_2[i] = digit;
+            }
+
+            string validityPeriodNumber = number_1.ToString() + "/" + number_2.ToString();
+
+            return validityPeriodNumber;
     }
 
     public async Task<IEnumerable<CardForResultDto>> RetrieveAllAsync()

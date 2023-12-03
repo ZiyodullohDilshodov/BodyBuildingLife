@@ -63,19 +63,22 @@ public class PersonServicecs : IPersonService
     {
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.IsDeleted==false)
+            .Include(p=>p.ProteinStandards)
             .Include(p=>p.PersonAssets)
             .Include(p=>p.Proteins)
-            .Include(p=>p.Cards)
+            .Include(p => p.Cards)
             .AsNoTracking()
             .ToListAsync();
-        return  _mapper.Map<IEnumerable<PersonForResultDto>>(personData);
 
+        return  _mapper.Map<IEnumerable<PersonForResultDto>>(personData);
+       
     }
 
     public async Task<PersonForResultDto> RetruveByIdAsync(long id)
     {
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.Id==id)
+            .Include(p=>p.ProteinStandards)
             .Include(p=>p.PersonAssets)
             .Include(p=>p.Proteins)
             .Include(p=>p.Cards)

@@ -33,7 +33,7 @@ public class PersonTrainerServoce : IPersonTrainerService
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-        if (person is null)
+        if (person is null || person.IsDeleted == true)
             throw new BodyBuildingLifeException(404, "Person is not found");
 
 
@@ -42,7 +42,7 @@ public class PersonTrainerServoce : IPersonTrainerService
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-        if (trainer is null)
+        if (trainer is null || person.IsDeleted == true)
             throw new BodyBuildingLifeException(404, "Trainer is not found");
 
 
@@ -55,6 +55,7 @@ public class PersonTrainerServoce : IPersonTrainerService
         }    
 
         var mappedPersonTrainer = _mapper.Map<PersonTrainer>(forCreationDto);
+        mappedPersonTrainer.CreateAtt = DateTime.UtcNow;
         var createPersonTrainer = await _personTrainerRepository.CreateAsync(mappedPersonTrainer);
         
         return _mapper.Map<PersonTrainerForResultDto>(createPersonTrainer);
@@ -112,6 +113,7 @@ public class PersonTrainerServoce : IPersonTrainerService
             throw new BodyBuildingLifeException(404, "PersonTrainer is not found");
 
         var mappedPersonTrainer = _mapper.Map<PersonTrainer>(personTrainer);
+        mappedPersonTrainer.UpdateAtt = DateTime.UtcNow;
         var updatePersonTrainer = await _personTrainerRepository.UpdateAsync(mappedPersonTrainer);
 
         return _mapper.Map<PersonTrainerForResultDto>(updatePersonTrainer);

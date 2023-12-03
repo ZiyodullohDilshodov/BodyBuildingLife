@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BodyBuildingLife.Api", "BodyBuildingLife.Api\BodyBuildingLife.Api.csproj", "{AA6E1EE8-657F-4214-B71D-E0E28AADBFF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BodyBuildingLife.Api", "BodyBuildingLife.Api\BodyBuildingLife.Api.csproj", "{AA6E1EE8-657F-4214-B71D-E0E28AADBFF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BodyBuildingLife.Domain", "BodyBuildingLife.Domain\BodyBuildingLife.Domain.csproj", "{A7A0D877-11BE-4654-B132-AD47867A1A90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BodyBuildingLife.Domain", "BodyBuildingLife.Domain\BodyBuildingLife.Domain.csproj", "{A7A0D877-11BE-4654-B132-AD47867A1A90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BodyBuildingLife.Data", "BodyBuildingLife.Data\BodyBuildingLife.Data.csproj", "{D3F2C221-CE4D-4CFA-A577-E689C6AA42FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BodyBuildingLife.Data", "BodyBuildingLife.Data\BodyBuildingLife.Data.csproj", "{D3F2C221-CE4D-4CFA-A577-E689C6AA42FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BodyBuildingLife.Service", "BodyBuildingLife.Service\BodyBuildingLife.Service.csproj", "{5F41B2C2-239C-4007-AB6C-CDC5BFA0C5F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BodyBuildingLife.Service", "BodyBuildingLife.Service\BodyBuildingLife.Service.csproj", "{5F41B2C2-239C-4007-AB6C-CDC5BFA0C5F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
