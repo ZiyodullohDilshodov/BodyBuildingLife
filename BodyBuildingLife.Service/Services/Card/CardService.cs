@@ -31,10 +31,10 @@ public class CardService : ICardService
             .FirstOrDefaultAsync();
 
         if (checkPerson is null)
-            new BodyBuildingLifeException(404, "Person is not found.");
+           throw  new BodyBuildingLifeException(404, "Person is not found.");
 
         if (checkPerson.SportsCardId != 0)
-            new BodyBuildingLifeException(409, "The person has a card");
+           throw new BodyBuildingLifeException(409, "The person has a card");
 
        
 
@@ -60,7 +60,7 @@ public class CardService : ICardService
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (checkCard == null || checkCard.IsDeleted==true)
-            new BodyBuildingLifeException(404, "Card is not found");
+           throw new BodyBuildingLifeException(404, "Card is not found");
 
         checkCard.CardIsBloced = true;
         checkCard.UpdateAtt = DateTime.UtcNow;
@@ -134,7 +134,7 @@ public class CardService : ICardService
             .FirstOrDefaultAsync();
 
         if (searchCard == null)
-            new BodyBuildingLifeException(404, "Card is not found");
+           throw  new BodyBuildingLifeException(404, "Card is not found");
 
         return _mapper.Map<CardForResultDto>(searchCard);
     }

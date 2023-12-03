@@ -26,10 +26,10 @@ public class PersonAssetService : IPersonAssetService
         _personAssetRepository = personAssetRepository;
     }
 
-    public async Task<PersonAssetForResultDto> CreateAsync(long userId, IFormFile formFile)
+    public async Task<PersonAssetForResultDto> CreateAsync(long personId, IFormFile formFile)
     {
         var person = await _personRepository.RetriveAllAsync()
-            .Where(p => p.Id == userId)
+            .Where(p => p.Id == personId)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -48,7 +48,7 @@ public class PersonAssetService : IPersonAssetService
 
         var mappedAsset = new PersonAsset()
         {
-            PersonId =  userId,
+            PersonId =  personId,
             Name = formFile.Name,
             Size = formFile.Length,
             Type = formFile.ContentType,

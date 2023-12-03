@@ -1,6 +1,6 @@
 ﻿namespace BodyBuildingLife.Service.DTOs.ProtainDTOs;
 
-public  class ProtainForUpdateDto
+public  class ProteinForUpdateDto
 {
     public long Id { get; set; }
     public string Name { get; set; }

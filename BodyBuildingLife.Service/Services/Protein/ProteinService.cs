@@ -19,7 +19,7 @@ public class ProteinService : IProteinService
         _proteinRepository = proteinRepository;
     }
 
-    public async Task<ProtainForResultDto> CreateAsync(ProtainForCreationDto forCreationDto)
+    public async Task<ProteinForResultDto> CreateAsync(ProteinForCreationDto forCreationDto)
     {
         var protein = await _proteinRepository.RetriveAllAsync()
             .Where(protein=>protein.Name == forCreationDto.Name)
@@ -29,11 +29,11 @@ public class ProteinService : IProteinService
         if (protein is not null)
             throw new BodyBuildingLifeException(409, "Protain  already exists");
 
-        var mappedProtein = _mapper.Map<Protein>(protein);
+        var mappedProtein = _mapper.Map<Protein>(forCreationDto);
         mappedProtein.CreateAtt = DateTime.UtcNow;
         var createProtein = await _proteinRepository.CreateAsync(mappedProtein);
 
-        return _mapper.Map<ProtainForResultDto>(createProtein);
+        return _mapper.Map<ProteinForResultDto>(createProtein);
 
     }
 
@@ -50,14 +50,14 @@ public class ProteinService : IProteinService
         return await  _proteinRepository.DeleteAsync(proteinId);
     }
 
-    public async Task<IEnumerable<ProtainForResultDto>> RetrieveAllAsync()
+    public async Task<IEnumerable<ProteinForResultDto>> RetrieveAllAsync()
     {
         var proteins =  _proteinRepository.RetriveAllAsync();
-        return _mapper.Map<IEnumerable<ProtainForResultDto>>(proteins);
+        return _mapper.Map<IEnumerable<ProteinForResultDto>>(proteins);
         
     }
 
-    public async Task<ProtainForResultDto> RetruveByIdAsync(long id)
+    public async Task<ProteinForResultDto> RetruveByIdAsync(long id)
     {
         var protein = await _proteinRepository.RetriveAllAsync()
             .Where(p=>p.Id == id)
@@ -67,10 +67,10 @@ public class ProteinService : IProteinService
         if (protein is null)
             throw new BodyBuildingLifeException(404, "Protain is not found");
 
-        return _mapper.Map<ProtainForResultDto>(protein);
+        return _mapper.Map<ProteinForResultDto>(protein);
     }
 
-    public async Task<ProtainForResultDto> UpdateAsync(ProtainForUpdateDto forUpdateDto)
+    public async Task<ProteinForResultDto> UpdateAsync(ProteinForUpdateDto forUpdateDto)
     {
         var protain = await _proteinRepository.RetriveAllAsync()
             .Where(p => p.Id == forUpdateDto.Id)
@@ -80,11 +80,11 @@ public class ProteinService : IProteinService
         if (protain is null)
             throw new BodyBuildingLifeException(404, "Protain is not found");
 
-        var mappedProtein = _mapper.Map<Protein>(protain);
+        var mappedProtein = _mapper.Map<Protein>(forUpdateDto);
         mappedProtein.UpdateAtt = DateTime.UtcNow;
         var updateProtein = await _proteinRepository.UpdateAsync(mappedProtein);
 
-        return _mapper.Map<ProtainForResultDto>(updateProtein);
+        return _mapper.Map<ProteinForResultDto>(updateProtein);
         
     }
 }

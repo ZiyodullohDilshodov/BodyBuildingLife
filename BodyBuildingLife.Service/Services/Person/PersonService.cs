@@ -9,12 +9,12 @@ using BodyBuildingLife.Service.Interfaces.Person;
 
 namespace BodyBuildingLife.Service.Services;
 
-public class PersonServicecs : IPersonService
+public class PersonService : IPersonService
 {
     private readonly IMapper _mapper;
     private readonly IPersonRepository _personRepository;
 
-    public PersonServicecs(IPersonRepository personRepository , IMapper mapper)
+    public PersonService(IPersonRepository personRepository , IMapper mapper)
     {
         _mapper = mapper;
         _personRepository = personRepository;
@@ -31,7 +31,7 @@ public class PersonServicecs : IPersonService
         if (person is not null)
             throw new BodyBuildingLifeException(409, "Person is alredy exist");
 
-        var mappedPersonData = _mapper.Map<Person>(person);
+        var mappedPersonData = _mapper.Map<Person>(forCreationDto);
         mappedPersonData.CreateAtt = DateTime.UtcNow;
 
         var responsePersonData = await _personRepository.CreateAsync(mappedPersonData);

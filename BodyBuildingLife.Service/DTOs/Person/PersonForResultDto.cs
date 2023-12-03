@@ -15,7 +15,7 @@ public  class PersonForResultDto
     public DateTime UpdateAtt { get; set; }
 
     public ICollection<CardForResultDto> Cards { get; set; }
-    public ICollection<ProtainForResultDto> Proteins { get; set; }
+    public ICollection<ProteinForResultDto> Proteins { get; set; }
     public ICollection<PersonAssetForResultDto> PersonAssets { get; set; }
     public ICollection<ProteinStandardsForResultDto> ProteinStandards { get; set; }
 }

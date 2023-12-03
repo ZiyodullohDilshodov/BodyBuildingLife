@@ -27,9 +27,9 @@ public  class MapperProfile : Profile
         CreateMap<Person,PersonForUpdateDto>().ReverseMap();
         CreateMap<Person,PersonForCreationDto>().ReverseMap();
 
-        CreateMap<Protein, ProtainForResultDto>().ReverseMap();
-        CreateMap<Protein, ProtainForUpdateDto>().ReverseMap();
-        CreateMap<Protein, ProtainForCreationDto>().ReverseMap();
+        CreateMap<Protein, ProteinForResultDto>().ReverseMap();
+        CreateMap<Protein, ProteinForUpdateDto>().ReverseMap();
+        CreateMap<Protein, ProteinForCreationDto>().ReverseMap();
 
         CreateMap<Trainer, TrainerForResultDto>().ReverseMap();
         CreateMap<Trainer, TrainerForUpdateDto>().ReverseMap();

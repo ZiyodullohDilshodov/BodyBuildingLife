@@ -2,7 +2,7 @@
 
 namespace BodyBuildingLife.Service.DTOs.ProtainDTOs;
 
-public  class ProtainForResultDto
+public  class ProteinForResultDto
 {
     public long Id { get; set; }
     public string Name { get; set; }

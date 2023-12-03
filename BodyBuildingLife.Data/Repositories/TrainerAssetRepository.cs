@@ -7,7 +7,7 @@ namespace BodyBuildingLife.Data.Repositories;
 
 public class TrainerAssetRepository : Repository<TrainerAsset>, ITrainerAssetRepository
 {
-    public TrainerAssetRepository(AppDbContext appDbContext, DbSet<TrainerAsset> dbSet) : base(appDbContext, dbSet)
+    public TrainerAssetRepository(AppDbContext appDbContext) : base(appDbContext)
     {
     }
 }

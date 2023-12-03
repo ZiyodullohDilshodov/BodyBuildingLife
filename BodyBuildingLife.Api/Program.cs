@@ -1,3 +1,4 @@
+using BodyBuildingLife.Api.Exctension;
 using BodyBuildingLife.Data.DbContexts;
 using BodyBuildingLife.Service.Helpers;
 using BodyBuildingLife.Service.Mappers;
@@ -11,18 +12,24 @@ namespace BodyBuildingLife.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<AppDbContext>(option => 
+                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+          
             // Add services to the container.
+            builder.Services.AddCustomerService();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             builder.Services.AddAutoMapper(typeof(MapperProfile));
-            var app = builder.Build();
 
             WebHostEnvarement.WebRootPath = Path.GetFullPath("wwwroot");
+
+            var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

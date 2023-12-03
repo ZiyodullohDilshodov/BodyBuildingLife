@@ -29,7 +29,7 @@ public class TrainerService : ITrainerService
         if (trainer is not null)
             throw new BodyBuildingLifeException(409, "Trainer already exists");
 
-        var mappedTrainer = _mapper.Map<Trainer>(trainer);
+        var mappedTrainer = _mapper.Map<Trainer>(forCreationDto);
         mappedTrainer.CreateAtt = DateTime.UtcNow;
         var createTrainer = await _trainerRepository.CreateAsync(mappedTrainer);
         return _mapper.Map<TrainerForResultDto>(createTrainer);

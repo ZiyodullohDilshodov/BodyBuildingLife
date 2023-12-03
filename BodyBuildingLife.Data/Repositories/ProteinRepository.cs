@@ -7,7 +7,7 @@ namespace BodyBuildingLife.Data.Repositories;
 
 public class ProteinRepository : Repository<Protein>, IProteinRepository
 {
-    public ProteinRepository(AppDbContext appDbContext, DbSet<Protein> dbSet) : base(appDbContext, dbSet)
+    public ProteinRepository(AppDbContext appDbContext) : base(appDbContext)
     {
     }
 }
