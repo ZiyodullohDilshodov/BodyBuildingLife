@@ -12,11 +12,11 @@ public class ProteinStandardsService : IProteinStandardsService
 {
     private readonly  IMapper _mapper;
     private readonly  IProteinRepository _proteinRepository;
-    private readonly  IPersonRepository _personRepository;
+    private readonly  IPersonService _personRepository;
     private readonly  IProteinStandardsRepository _proteinStandardsRepository;
 
     public ProteinStandardsService(IMapper mapper,
-                                   IPersonRepository personRepository,
+                                   IPersonService personRepository,
                                    IProteinRepository proteinRepository,
                                    IProteinStandardsRepository proteinStandardsRepository)
     {
@@ -25,7 +25,7 @@ public class ProteinStandardsService : IProteinStandardsService
         _proteinStandardsRepository = proteinStandardsRepository;
     }
 
-    public async Task<ProteinStandardsForResultDto> CreateAsync(long personID, long proteinID, ProteinStandardsForResultDto proteinStandardsForResultDto)
+    public async Task<ProteinStandardsForResultDto> CreateAsync(long personID, long proteinID, ProteinStandardsForCreationDto proteinStandardsForCreationDto)
     {
         var person = await _personRepository.RetriveAllAsync()
            .Where(p => p.Id == personID)
@@ -43,7 +43,7 @@ public class ProteinStandardsService : IProteinStandardsService
         if (protein is null)
             throw new BodyBuildingLifeException(404, "Protein is not found");
 
-        var mapped = _mapper.Map<ProteinStandards>(proteinStandardsForResultDto);
+        var mapped = _mapper.Map<ProteinStandards>(proteinStandardsForCreationDto);
         mapped.CreateAtt = DateTime.UtcNow;
         var createPersonStandards = await  _proteinStandardsRepository.CreateAsync(mapped);
         return _mapper.Map<ProteinStandardsForResultDto>(createPersonStandards);

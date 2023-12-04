@@ -28,7 +28,7 @@ namespace BodyBuildingLife.Api.Controllers.TrainerAsset
         }
 
         [HttpPost("{trainer-id}")]
-        public async Task<IActionResult> CreateAsync([FromRoute(Name = "trainer-id")] long id,[Required][FromBody]IFormFile formFile)
+        public async Task<IActionResult> CreateAsync([FromRoute(Name = "trainer-id")] long id,[Required]IFormFile formFile)
         {
             var trainerAsset = await _trainerAssetService.CreateAsync(id, formFile);
             return Ok(trainerAsset);

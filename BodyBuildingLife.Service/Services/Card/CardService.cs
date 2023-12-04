@@ -12,20 +12,20 @@ public class CardService : ICardService
 {
     private readonly IMapper _mapper;
     private readonly ICardRepository _cardRepository;
-    private readonly IPersonRepository _personRepository;
+    private readonly IPersonService _personService;
 
 
-    public CardService(IMapper mapper, ICardRepository cardRepository , IPersonRepository personRepository)
+    public CardService(IMapper mapper, ICardRepository cardRepository , IPersonService personService)
     {
         this._mapper = mapper;
         this._cardRepository = cardRepository;
-        this._personRepository = personRepository;
+        this._personService = personService;
 
     }
 
     public async Task<CardForResultDto> CreateAsync(CardForCreationDto forCreationDto)
     {
-       var checkPerson = await _personRepository.RetriveAllAsync()
+       var checkPerson = await _personService.RetriveAllAsync()
             .Where(p=>p.PasportSeriaNumber == forCreationDto.PasportSeriaNumber)
             .AsNoTracking()
             .FirstOrDefaultAsync();
@@ -48,6 +48,8 @@ public class CardService : ICardService
 
         var resultMappedCardData = _mapper.Map<CardForResultDto>(requestCardData);
         checkPerson.SportsCardId = resultMappedCardData.Id;
+       
+        var updatePerson = await _personService.UpdateAsync(checkPerson);
 
         return resultMappedCardData;
 

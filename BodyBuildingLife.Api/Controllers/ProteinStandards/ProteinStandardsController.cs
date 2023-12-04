@@ -34,8 +34,8 @@ namespace BodyBuildingLife.Api.Controllers.ProteinStandards
             return Ok(proteinStandards);
         }
 
-        [HttpPost("{person-id}/{protein-id}/{proteinStandards-id}")]
-        public async Task<IActionResult> CreateAsync([FromRoute(Name = "person-id")]long personId,[FromRoute(Name = "protein-id")]long proteinId,[FromBody] ProteinStandardsForResultDto proteinStandardsForResultDto)
+        [HttpPost("{person-id}/{protein-id}")]
+        public async Task<IActionResult> CreateAsync([FromRoute(Name = "person-id")]long personId,[FromRoute(Name = "protein-id")]long proteinId,[FromBody] ProteinStandardsForCreationDto proteinStandardsForResultDto)
         {
             var personProtein = await _proteinStandardsService.CreateAsync(personId, proteinId, proteinStandardsForResultDto);
             return Ok(personProtein);

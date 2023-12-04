@@ -1,20 +1,18 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using BodyBuildingLife.Data.IRepositories;
 using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Service.DTOs.Person;
 using BodyBuildingLife.Service.DTOs.PersonDTOs;
 using BodyBuildingLife.Domain.Entities.Persons;
-using BodyBuildingLife.Service.Interfaces.Person;
 
 namespace BodyBuildingLife.Service.Services;
 
-public class PersonService : IPersonService
+public class PersonService : Interfaces.Person.IPersonService
 {
     private readonly IMapper _mapper;
-    private readonly IPersonRepository _personRepository;
+    private readonly Data.IRepositories.IPersonService _personRepository;
 
-    public PersonService(IPersonRepository personRepository , IMapper mapper)
+    public PersonService(Data.IRepositories.IPersonService personRepository , IMapper mapper)
     {
         _mapper = mapper;
         _personRepository = personRepository;

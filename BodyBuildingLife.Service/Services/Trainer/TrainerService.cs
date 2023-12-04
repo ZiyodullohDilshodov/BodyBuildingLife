@@ -53,6 +53,7 @@ public class TrainerService : ITrainerService
     public async Task<IEnumerable<TrainerForResultDto>> RetrieveAllAsync()
     {
         var tariners = await _trainerRepository.RetriveAllAsync()
+            .Include(ts=>ts.TrainerAssets)
             .AsNoTracking()
             .ToListAsync();
 
@@ -64,6 +65,7 @@ public class TrainerService : ITrainerService
     {
         var trainer = await _trainerRepository.RetriveAllAsync()
             .Where(t => t.Id == id)
+            .Include(ts=>ts.TrainerAssets)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

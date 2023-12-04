@@ -4,7 +4,7 @@ using BodyBuildingLife.Domain.Entities.Persons;
 
 namespace BodyBuildingLife.Data.Repositories;
 
-public class PersonRepository : Repository<Person>, IPersonRepository
+public class PersonRepository : Repository<Person>, IPersonService
 {
     public PersonRepository(AppDbContext appDbContext) : base(appDbContext)
     {

@@ -7,7 +7,6 @@ public  class TrainerAssetForResultDto
     public string Name { get; set; }
     public string Path { get; set; }
     public string Type { get; set; }
-    public bool IsDeleted { get; set; }
     public long TrainerId { get; set; }
     public string Extension { get; set; }
     public DateTime CreateAtt { get; set; }

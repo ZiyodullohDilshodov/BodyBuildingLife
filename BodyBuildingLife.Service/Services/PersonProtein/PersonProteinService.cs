@@ -11,14 +11,14 @@ namespace BodyBuildingLife.Service.Services;
 public class PersonProteinService : IPersonProteinService
 {
     private readonly IMapper _mapper;
-    private readonly IPersonRepository _personRepository;
+    private readonly IPersonService _personRepository;
     private readonly IProteinRepository _protainRepository;
     private readonly IPersonProteinRepository _personProtainRepository;
 
 
 
     public PersonProteinService(IMapper mapper,
-                                IPersonRepository personRepository, 
+                                IPersonService personRepository, 
                                 IProteinRepository protainRepository)
     {
         _mapper = mapper;

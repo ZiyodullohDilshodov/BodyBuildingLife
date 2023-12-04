@@ -21,8 +21,8 @@ namespace BodyBuildingLife.Api.Exctension
             service.AddScoped<ICardService, CardService>();
             service.AddScoped<ICardRepository, CardRepository>();
 
-            service.AddScoped<IPersonService,PersonService>();
-            service.AddScoped<IPersonRepository, PersonRepository>();
+            service.AddScoped<Service.Interfaces.Person.IPersonService, PersonService>();
+            service.AddScoped<Data.IRepositories.IPersonService, PersonRepository>();
 
             service.AddScoped<ITrainerService,TrainerService>();
             service.AddScoped<ITrainerRepository,TrainerRepository>();

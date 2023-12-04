@@ -12,6 +12,9 @@ using BodyBuildingLife.Service.DTOs.PersonProtainDTOs;
 using BodyBuildingLife.Service.DTOs.PersonTrainerDTOs;
 using BodyBuildingLife.Domain.Entities.PersonTreainers;
 using BodyBuildingLife.Service.DTOs.Person;
+using BodyBuildingLife.Domain.Entities.Assets;
+using BodyBuildingLife.Service.DTOs.PersonAsset;
+using BodyBuildingLife.Service.DTOs.TrainerAsset;
 
 namespace BodyBuildingLife.Service.Mappers;
 
@@ -26,6 +29,7 @@ public  class MapperProfile : Profile
         CreateMap<Person,PersonForResultDto>().ReverseMap();
         CreateMap<Person,PersonForUpdateDto>().ReverseMap();
         CreateMap<Person,PersonForCreationDto>().ReverseMap();
+       
 
         CreateMap<Protein, ProteinForResultDto>().ReverseMap();
         CreateMap<Protein, ProteinForUpdateDto>().ReverseMap();
@@ -42,6 +46,9 @@ public  class MapperProfile : Profile
         CreateMap<PersonProtein, PersonProtainForResultDto>().ReverseMap();
         CreateMap<PersonProtein, PersonProtainForUpdateDto>().ReverseMap();
         CreateMap<PersonProtein, PersonProtainForCreationDto>().ReverseMap();
+
+        CreateMap<PersonAsset, PersonAssetForResultDto>().ReverseMap();
+        CreateMap<TrainerAsset, TrainerAssetForResultDto>().ReverseMap();
 
     }
 }

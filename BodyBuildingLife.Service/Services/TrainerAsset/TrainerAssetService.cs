@@ -7,7 +7,6 @@ using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Domain.Entities.Assets;
 using BodyBuildingLife.Service.DTOs.TrainerAsset;
 using BodyBuildingLife.Service.Interfaces.TrainerAsset;
-using BodyBuildingLife.Domain.Entities.Trainers;
 
 namespace BodyBuildingLife.Service.Services;
 

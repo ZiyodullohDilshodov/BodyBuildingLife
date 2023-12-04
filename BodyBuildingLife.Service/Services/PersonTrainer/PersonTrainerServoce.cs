@@ -11,12 +11,12 @@ namespace BodyBuildingLife.Service.Services;
 public class PersonTrainerServoce : IPersonTrainerService
 {
     private readonly IMapper _mapper;
-    private readonly IPersonRepository _personRepository;
+    private readonly IPersonService _personRepository;
     private readonly ITrainerRepository _trainerRepository;
     private readonly IPersonTrainerRepository _personTrainerRepository;
 
     public PersonTrainerServoce(IMapper mapper,
-                                IPersonRepository personRepository,
+                                IPersonService personRepository,
                                 ITrainerRepository trainerRepository,
                                 IPersonTrainerRepository personTrainerRepository)
     {
