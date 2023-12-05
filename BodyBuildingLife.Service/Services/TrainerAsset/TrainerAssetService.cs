@@ -83,7 +83,7 @@ public class TrainerAssetService : ITrainerAssetService
         return await _trainerAssetRepository.DeleteAsync(trainerAsset.Id);
     }
 
-    public async Task<IEnumerable<TrainerAssetForResultDto>> RetrieveAllAsync(long trainerId)
+    public async Task<IEnumerable<TrainerAssetForResultDto>> RetrieveAllAsync()
     {
         var trainerAssets = _trainerAssetRepository.RetriveAllAsync();
         return _mapper.Map<IEnumerable<TrainerAssetForResultDto>>(trainerAssets);

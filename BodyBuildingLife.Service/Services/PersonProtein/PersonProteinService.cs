@@ -5,7 +5,6 @@ using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Domain.Entities.ProtainPersons;
 using BodyBuildingLife.Service.DTOs.PersonProtainDTOs;
 using BodyBuildingLife.Service.Interfaces.PersonProtain;
-using BodyBuildingLife.Domain.Entities.Persons;
 
 namespace BodyBuildingLife.Service.Services;
 
@@ -33,7 +32,6 @@ public class PersonProteinService : IPersonProteinService
     {
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.Id == forCreationDto.PersonID)
-            .Include(p=>p.Proteins)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -57,10 +55,6 @@ public class PersonProteinService : IPersonProteinService
                 throw new BodyBuildingLifeException(404, "PersonProtain alrwady exists");
 
         }
-
-        personData.Proteins.Append(protainData);
-        var mapped = _mapper.Map<Person>(personData);
-        var  AddProteinInPerson = await _personRepository.AddProteinInPerson(mapped);
 
         var mappedData = _mapper.Map<PersonProtein>(forCreationDto);
         mappedData.CreateAtt = DateTime.UtcNow;

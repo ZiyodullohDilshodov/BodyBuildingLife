@@ -8,5 +8,5 @@ public  interface ITrainerAssetService
     Task<bool> RemoveAsync(long trainerId, long id);
     Task<TrainerAssetForResultDto> RetrieveByIdAsync(long trainerId, long id);
     Task<TrainerAssetForResultDto> CreateAsync(long trainerId, IFormFile formFile);
-    Task<IEnumerable<TrainerAssetForResultDto>> RetrieveAllAsync(long trainerId);
+    Task<IEnumerable<TrainerAssetForResultDto>> RetrieveAllAsync();
 }

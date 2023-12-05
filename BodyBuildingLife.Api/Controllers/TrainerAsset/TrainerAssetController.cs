@@ -20,10 +20,10 @@ namespace BodyBuildingLife.Api.Controllers.TrainerAsset
             return Ok(trainerAsset);
         }
 
-        [HttpGet("{trainerAsset-id}")]
-        public async Task<IActionResult> GetAsync([FromRoute(Name = "trainerAsset-id")] long id)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync()
         {
-            var trainerAsset = await _trainerAssetService.RetrieveAllAsync(id);
+            var trainerAsset = await _trainerAssetService.RetrieveAllAsync();
             return Ok(trainerAsset);
         }
 

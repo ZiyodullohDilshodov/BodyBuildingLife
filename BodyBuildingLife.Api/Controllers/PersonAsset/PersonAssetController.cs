@@ -19,10 +19,10 @@ public class PersonAssetController : BaseController
         return Ok(personAsset);
     }
 
-    [HttpGet("{person-id}")]
-    public async Task<IActionResult> GetAsync([FromRoute(Name = "person-id")] long id)
+    [HttpGet]
+    public async Task<IActionResult> GetAsync()
     {
-        var personAsset = await _personAssetService.RetrieveAllAsync(id);
+        var personAsset = await _personAssetService.RetrieveAllAsync();
         return Ok(personAsset);
     }
 

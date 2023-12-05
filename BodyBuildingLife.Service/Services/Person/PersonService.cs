@@ -13,12 +13,13 @@ public class PersonService : IPersonService
 {
     private readonly IMapper _mapper;
     private readonly IPersonRepository _personRepository;
-    private readonly IProteinRepository _proteinRepository;
+   
 
-    public PersonService(IPersonRepository personRepository , IMapper mapper)
+    public PersonService(IPersonRepository personRepository ,IMapper mapper)
     {
         _mapper = mapper;
         _personRepository = personRepository;
+       
     }
 
     public async Task<PersonForResultDto> CreateAsync(PersonForCreationDto forCreationDto)
@@ -66,7 +67,7 @@ public class PersonService : IPersonService
             .Where(person=>person.IsDeleted==false)
             .Include(p=>p.ProteinStandards)
             .Include(p=>p.PersonAssets)
-            .Include(p=>p.Proteins)
+            .Include(p=>p.Proteins).ThenInclude(p=>p.Protein)
             .Include(p => p.Cards)
             .AsNoTracking()
             .ToListAsync();

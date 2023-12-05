@@ -83,16 +83,22 @@ public class PersonAssetService : IPersonAssetService
         return await _personAssetRepository.DeleteAsync(personAsset.Id);
     }
 
-    public async Task<IEnumerable<PersonAssetForResultDto>> RetrieveAllAsync(long userId)
+    public async Task<IEnumerable<PersonAssetForResultDto>> RetrieveAllAsync()
     {
-        var personAssets = await _personRepository.RetriveAllAsync()
-            .Where(p=>p.Id== userId)
-            .Include(p=>p.PersonAssets)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
+        //var person = await _personRepository.RetriveAllAsync()
+        //    .Where(p=>p.Id == userId)
+        //    .AsNoTracking()
+        //    .FirstOrDefaultAsync();
 
-        if (personAssets is null || personAssets.IsDeleted == true)
-            throw new BodyBuildingLifeException(404, "Person is not found");
+        //if (person is null || person.IsDeleted == true)
+        //    throw new BodyBuildingLifeException(404, "Person is not found");
+
+        var personAssets = await _personAssetRepository.RetriveAllAsync()
+            .AsNoTracking()
+            .ToListAsync();
+
+        if (personAssets is null)
+            throw new BodyBuildingLifeException(404, "PersonAsset is not found");
 
         return   _mapper.Map<IEnumerable<PersonAssetForResultDto>>(personAssets);
     }

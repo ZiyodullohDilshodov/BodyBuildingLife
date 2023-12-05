@@ -1,4 +1,5 @@
 using BodyBuildingLife.Api.Exctension;
+using BodyBuildingLife.Api.Middlewares;
 using BodyBuildingLife.Data.DbContexts;
 using BodyBuildingLife.Service.Helpers;
 using BodyBuildingLife.Service.Mappers;
@@ -37,6 +38,8 @@ namespace BodyBuildingLife.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<ExceptionHendlerMiddleware>();
 
             app.UseHttpsRedirection();
 
