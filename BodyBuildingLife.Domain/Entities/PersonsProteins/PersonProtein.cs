@@ -11,4 +11,6 @@ public class PersonProtein : Auditable
 
     public long PersonId { get; set; }
     public Person Person { get; set; }
+
+
 }

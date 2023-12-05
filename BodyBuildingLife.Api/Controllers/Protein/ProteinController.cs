@@ -21,7 +21,7 @@ namespace BodyBuildingLife.Api.Controllers.Protein
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync([FromBody] ProteinForCreationDto proteinForCreationDto)
+        public async Task<IActionResult> GetAsync()
         {
             var protein = await _proteinService.RetrieveAllAsync();
             return Ok(protein);

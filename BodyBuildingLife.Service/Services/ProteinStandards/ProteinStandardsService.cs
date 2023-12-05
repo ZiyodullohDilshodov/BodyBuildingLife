@@ -12,14 +12,15 @@ public class ProteinStandardsService : IProteinStandardsService
 {
     private readonly  IMapper _mapper;
     private readonly  IProteinRepository _proteinRepository;
-    private readonly  IPersonService _personRepository;
+    private readonly  IPersonRepository _personRepository;
     private readonly  IProteinStandardsRepository _proteinStandardsRepository;
 
     public ProteinStandardsService(IMapper mapper,
-                                   IPersonService personRepository,
+                                   IPersonRepository personRepository,
                                    IProteinRepository proteinRepository,
                                    IProteinStandardsRepository proteinStandardsRepository)
     {
+        _mapper = mapper;
         _personRepository = personRepository;
         _proteinRepository = proteinRepository;
         _proteinStandardsRepository = proteinStandardsRepository;
@@ -83,7 +84,7 @@ public class ProteinStandardsService : IProteinStandardsService
     {
         var ProteinStandards = await _proteinStandardsRepository.RetriveAllAsync()
             .AsNoTracking()
-            .FirstOrDefaultAsync();
+            .ToListAsync();
 
         return _mapper.Map<IEnumerable<ProteinStandardsForResultDto>>(ProteinStandards);
     }
@@ -93,8 +94,7 @@ public class ProteinStandardsService : IProteinStandardsService
     {
         var person = await _personRepository.RetriveAllAsync()
           .Where(p => p.Id == personID)
-          .Include(ps => ps.Proteins.Where(p=>p.Id == proteinID))
-          .Include(ps=>ps.Proteins.Where(p=>p.ProteinStandardsId == proteinStandardsId))
+          .Include(ps => ps.Proteins)
           .AsNoTracking()
           .FirstOrDefaultAsync();
 
@@ -117,7 +117,7 @@ public class ProteinStandardsService : IProteinStandardsService
         if (proteinStandart is null)
             throw new BodyBuildingLifeException(404, "ProteinStandards is not found");
 
-        var mapped = _mapper.Map<ProteinStandardsForResultDto>(person);
+        var mapped = _mapper.Map<ProteinStandardsForResultDto>(proteinStandart);
         return mapped;
     }
 

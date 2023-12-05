@@ -14,11 +14,11 @@ public class PersonAssetService : IPersonAssetService
 {
 
     private readonly IMapper _mapper;
-    private readonly IPersonService _personRepository;
+    private readonly IPersonRepository _personRepository;
     private readonly IPersonAssetRepository _personAssetRepository;
 
     public PersonAssetService(IMapper mapper,
-                              IPersonService personRepository, 
+                              IPersonRepository personRepository, 
                               IPersonAssetRepository personAssetRepository)
     {
         _mapper = mapper;

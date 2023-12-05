@@ -28,7 +28,7 @@ namespace BodyBuildingLife.Api.Controllers.Trainer
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody]TrainerForCreationDto trainerForCreationDto)
+        public async Task<IActionResult> CreateAsync(TrainerForCreationDto trainerForCreationDto)
         {
             var trainer = await _trainerService.CreateAsync(trainerForCreationDto);
             return Ok(trainer);

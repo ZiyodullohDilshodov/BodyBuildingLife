@@ -12,10 +12,10 @@ public class CardService : ICardService
 {
     private readonly IMapper _mapper;
     private readonly ICardRepository _cardRepository;
-    private readonly IPersonService _personService;
+    private readonly IPersonRepository _personService;
 
 
-    public CardService(IMapper mapper, ICardRepository cardRepository , IPersonService personService)
+    public CardService(IMapper mapper, ICardRepository cardRepository , IPersonRepository personService)
     {
         this._mapper = mapper;
         this._cardRepository = cardRepository;

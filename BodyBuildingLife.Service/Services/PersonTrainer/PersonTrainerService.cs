@@ -8,15 +8,15 @@ using BodyBuildingLife.Service.Interfaces.PersonTrainer;
 
 namespace BodyBuildingLife.Service.Services;
 
-public class PersonTrainerServoce : IPersonTrainerService
+public class PersonTrainerService : IPersonTrainerService
 {
     private readonly IMapper _mapper;
-    private readonly IPersonService _personRepository;
+    private readonly IPersonRepository _personRepository;
     private readonly ITrainerRepository _trainerRepository;
     private readonly IPersonTrainerRepository _personTrainerRepository;
 
-    public PersonTrainerServoce(IMapper mapper,
-                                IPersonService personRepository,
+    public PersonTrainerService(IMapper mapper,
+                                IPersonRepository personRepository,
                                 ITrainerRepository trainerRepository,
                                 IPersonTrainerRepository personTrainerRepository)
     {
@@ -42,7 +42,7 @@ public class PersonTrainerServoce : IPersonTrainerService
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-        if (trainer is null || person.IsDeleted == true)
+        if (trainer is null || trainer.IsDeleted == true)
             throw new BodyBuildingLifeException(404, "Trainer is not found");
 
 

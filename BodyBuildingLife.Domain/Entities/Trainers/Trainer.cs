@@ -10,6 +10,7 @@ public class Trainer : Auditable
     public string  LastName { get ; set; }
     public  string  SportsSpecialist { get; set; }
 
+    public string PasportSerialNumber { get; set; }
     public ICollection<Person>Persons { get; set; }
     public ICollection<TrainerAsset> TrainerAssets { get; set; }
 

@@ -22,7 +22,7 @@ public class TrainerService : ITrainerService
     public async Task<TrainerForResultDto> CreateAsync(TrainerForCreationDto forCreationDto)
     {
         var trainer = await _trainerRepository.RetriveAllAsync()
-            .Where(t=>t.Id == forCreationDto.Id)
+            .Where(t=>t.PasportSerialNumber == forCreationDto.PasportSerialNumber)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -85,7 +85,8 @@ public class TrainerService : ITrainerService
         if (trainer is null)
             throw new BodyBuildingLifeException(404, "Trainer is not found");
 
-        var updateTrainer = await _trainerRepository.UpdateAsync(trainer);
+        var mapped = _mapper.Map<Trainer>(forUpdateDto);
+        var updateTrainer = await _trainerRepository.UpdateAsync(mapped);
         updateTrainer.UpdateAtt = DateTime.UtcNow;
         return _mapper.Map<TrainerForResultDto>(updateTrainer);
         

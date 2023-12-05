@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using BodyBuildingLife.Service.DTOs.PersonTrainerDTOs;
 using BodyBuildingLife.Service.Interfaces.PersonTrainer;
 
@@ -35,11 +36,12 @@ public class PersonTrainerController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAsync([FromBody] PersonTrainerForCreationDto personTrainerForCreationDto)
+    public async Task<IActionResult> CreateAsync([Required]PersonTrainerForCreationDto personTrainerForCreationDto)
     {
         var personTrainer = await _personTrainerService.CreateAsync(personTrainerForCreationDto);
         return Ok(personTrainer);
     }
+
 
     [HttpPut]
     public async Task<IActionResult> UpdateAsync([FromBody] PersonTrainerForUpdateDto personTrainerForUpdateDto)

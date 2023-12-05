@@ -4,15 +4,18 @@ using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Service.DTOs.Person;
 using BodyBuildingLife.Service.DTOs.PersonDTOs;
 using BodyBuildingLife.Domain.Entities.Persons;
+using BodyBuildingLife.Data.IRepositories;
+using BodyBuildingLife.Service.Interfaces.Person;
 
 namespace BodyBuildingLife.Service.Services;
 
-public class PersonService : Interfaces.Person.IPersonService
+public class PersonService : IPersonService
 {
     private readonly IMapper _mapper;
-    private readonly Data.IRepositories.IPersonService _personRepository;
+    private readonly IPersonRepository _personRepository;
+    private readonly IProteinRepository _proteinRepository;
 
-    public PersonService(Data.IRepositories.IPersonService personRepository , IMapper mapper)
+    public PersonService(IPersonRepository personRepository , IMapper mapper)
     {
         _mapper = mapper;
         _personRepository = personRepository;

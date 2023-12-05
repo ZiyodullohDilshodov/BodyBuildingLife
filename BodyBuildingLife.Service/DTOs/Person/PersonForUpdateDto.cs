@@ -1,4 +1,6 @@
-﻿namespace BodyBuildingLife.Service.DTOs.PersonDTOs;
+﻿using BodyBuildingLife.Service.DTOs.ProtainDTOs;
+
+namespace BodyBuildingLife.Service.DTOs.PersonDTOs;
 
 public  class PersonForUpdateDto
 {
@@ -6,8 +8,7 @@ public  class PersonForUpdateDto
     public string Phone { get; set; }
     public string LastName { get; set; }
     public string FirstName { get; set; }
-    public long SportsCardId { get; set; }
-    public long ProteinId { get; set; }
     public string PasportSeriaNumber { get; set; }
 
+    public ICollection<ProteinForResultDto> Proteins { get; set; }
 }
