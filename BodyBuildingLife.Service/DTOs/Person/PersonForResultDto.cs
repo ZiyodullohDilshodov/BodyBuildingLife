@@ -2,6 +2,8 @@
 using BodyBuildingLife.Service.DTOs.Standards;
 using BodyBuildingLife.Service.DTOs.PersonAsset;
 using BodyBuildingLife.Service.DTOs.PersonProtainDTOs;
+using BodyBuildingLife.Domain.Entities.PersonTreainers;
+using BodyBuildingLife.Service.DTOs.PersonTrainerDTOs;
 
 namespace BodyBuildingLife.Service.DTOs.Person;
 public  class PersonForResultDto
@@ -15,8 +17,8 @@ public  class PersonForResultDto
     public DateTime CreateAtt { get; set; }
     public DateTime UpdateAtt { get; set; }
 
-    public ICollection<CardForResultDto> Cards { get; set; }
-    public ICollection<PersonProteinForResultDto> Proteins { get; set; }
+    public ICollection<PersonProteinForResultDto> PersonProteins { get; set; }
     public ICollection<PersonAssetForResultDto> PersonAssets { get; set; }
-    public ICollection<ProteinStandardsForResultDto> ProteinStandards { get; set; }
+    public ICollection<PersonStandardForResultDto> ProteinStandards { get; set; }
+    public ICollection<PersonTrainerForResultDto> PersonTrainers { get; set; }
 }

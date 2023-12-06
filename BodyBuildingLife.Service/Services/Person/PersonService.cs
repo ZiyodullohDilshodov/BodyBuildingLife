@@ -65,10 +65,10 @@ public class PersonService : IPersonService
     {
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.IsDeleted==false)
-            .Include(p=>p.ProteinStandards)
+            .Include(p=>p.PersonStandards).ThenInclude(p=>p.Standard)
+            .Include(p=>p.PersonProteins).ThenInclude(p=>p.Protein)
+            .Include(p=>p.PersonTrainers).ThenInclude(p=>p.Trainer)
             .Include(p=>p.PersonAssets)
-            .Include(p=>p.Proteins).ThenInclude(p=>p.Protein)
-            .Include(p => p.Cards)
             .AsNoTracking()
             .ToListAsync();
 
@@ -80,10 +80,9 @@ public class PersonService : IPersonService
     {
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.Id==id)
-            .Include(p=>p.ProteinStandards)
+            .Include(p=>p.PersonStandards)
             .Include(p=>p.PersonAssets)
-            .Include(p=>p.Proteins)
-            .Include(p=>p.Cards)
+            .Include(p=>p.PersonProteins)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -98,8 +97,7 @@ public class PersonService : IPersonService
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.Id==forUpdateDto.Id)
             .Include (p=>p.PersonAssets)
-            .Include(p=>p.Proteins)
-            .Include(p => p.Cards)
+            .Include(p=>p.PersonProteins)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

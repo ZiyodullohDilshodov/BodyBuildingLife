@@ -2,6 +2,6 @@
 
 namespace BodyBuildingLife.Data.IRepositories;
 
-public  interface IProteinStandardsRepository : IRepository<ProteinStandards>
+public  interface IStandardsRepository : IRepository<Standard>
 {
 }

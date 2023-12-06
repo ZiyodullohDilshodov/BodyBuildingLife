@@ -10,6 +10,10 @@ using BodyBuildingLife.Service.Interfaces.TrainerAsset;
 using BodyBuildingLife.Service.Interfaces.IPersonAsset;
 using BodyBuildingLife.Service.Interfaces.PersonProtain;
 using BodyBuildingLife.Service.Interfaces.PersonTrainer;
+using BodyBuildingLife.Service.Interfaces.PersonStandards;
+using BodyBuildingLife.Service.Services.PersonStandards;
+using BodyBuildingLife.Service.Interfaces.Standards;
+using BodyBuildingLife.Service.Services.Standards;
 
 namespace BodyBuildingLife.Api.Exctension
 {
@@ -43,11 +47,14 @@ namespace BodyBuildingLife.Api.Exctension
             service.AddScoped<IPersonProteinService,  PersonProteinService>();
             service.AddScoped<IPersonProteinRepository, PersonProteinRepository>();
 
-            service.AddScoped<IProteinStandardsService, ProteinStandardsService>();
-            service.AddScoped<IProteinStandardsRepository, ProteinStandardsRepository>();
+            service.AddScoped<IPersonStandardRepository,PersonStandardRepository>();
+            service.AddScoped<IStandardsRepository, StandardsRepository>();
 
             service.AddScoped<IPersonTrainerRepository, PersonTrainerRepository>();
             service.AddScoped<IPersonTrainerService, PersonTrainerService>();
+
+            service.AddScoped<IPersonStandardsService,PersonStandardService>();
+            service.AddScoped<IStandardsService, StandardsService>();
 
 
         }

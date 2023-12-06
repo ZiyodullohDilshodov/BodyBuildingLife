@@ -5,9 +5,9 @@ using BodyBuildingLife.Domain.Entities.Standards;
 
 namespace BodyBuildingLife.Data.Repositories;
 
-public class ProteinStandardsRepository : Repository<ProteinStandards>, IProteinStandardsRepository
+public class StandardsRepository : Repository<Standard>, IStandardsRepository
 {
-    public ProteinStandardsRepository(AppDbContext appDbContext) : base(appDbContext)
+    public StandardsRepository(AppDbContext appDbContext) : base(appDbContext)
     {
     }
 }

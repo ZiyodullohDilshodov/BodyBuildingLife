@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BodyBuildingLife.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class BodyBuildingMigrations : Migration
+    public partial class InitialMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,6 +18,7 @@ namespace BodyBuildingLife.Data.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Money = table.Column<long>(type: "bigint", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -35,27 +36,7 @@ namespace BodyBuildingLife.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Persons",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SportsCardId = table.Column<long>(type: "bigint", nullable: false),
-                    PasportSeriaNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateAtt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Persons", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Protains",
+                name: "Proteins",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -71,7 +52,25 @@ namespace BodyBuildingLife.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Protains", x => x.Id);
+                    table.PrimaryKey("PK_Proteins", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Standards",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConsumptionTimes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConsumptionVolume = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateAtt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Standards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,6 +82,7 @@ namespace BodyBuildingLife.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SportsSpecialist = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasportSerialNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateAtt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -90,6 +90,60 @@ namespace BodyBuildingLife.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trainers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Persons",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProteinId = table.Column<long>(type: "bigint", nullable: false),
+                    SportsCardId = table.Column<long>(type: "bigint", nullable: false),
+                    PasportSeriaNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrainerId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateAtt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Persons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Persons_Trainers_TrainerId",
+                        column: x => x.TrainerId,
+                        principalTable: "Trainers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonTrainersAsset",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TrainerId = table.Column<long>(type: "bigint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Extension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Size = table.Column<long>(type: "bigint", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonTrainersAsset", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PersonTrainersAsset_Trainers_TrainerId",
+                        column: x => x.TrainerId,
+                        principalTable: "Trainers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -120,12 +174,12 @@ namespace BodyBuildingLife.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PersonProtains",
+                name: "PersonProteins",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProtainId = table.Column<long>(type: "bigint", nullable: false),
+                    ProteinId = table.Column<long>(type: "bigint", nullable: false),
                     PersonId = table.Column<long>(type: "bigint", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -133,17 +187,46 @@ namespace BodyBuildingLife.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersonProtains", x => x.Id);
+                    table.PrimaryKey("PK_PersonProteins", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PersonProtains_Persons_PersonId",
+                        name: "FK_PersonProteins_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PersonProtains_Protains_ProtainId",
-                        column: x => x.ProtainId,
-                        principalTable: "Protains",
+                        name: "FK_PersonProteins_Proteins_ProteinId",
+                        column: x => x.ProteinId,
+                        principalTable: "Proteins",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonStandards",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonId = table.Column<long>(type: "bigint", nullable: false),
+                    StandardID = table.Column<long>(type: "bigint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateAtt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonStandards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PersonStandards_Persons_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PersonStandards_Standards_StandardID",
+                        column: x => x.StandardID,
+                        principalTable: "Standards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -177,47 +260,35 @@ namespace BodyBuildingLife.Data.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PersonTrainersAsset",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TrainerId = table.Column<long>(type: "bigint", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateAtt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Extension = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Size = table.Column<long>(type: "bigint", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonTrainersAsset", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PersonTrainersAsset_Trainers_TrainerId",
-                        column: x => x.TrainerId,
-                        principalTable: "Trainers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_PersonAssets_PersonId",
                 table: "PersonAssets",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonProtains_PersonId",
-                table: "PersonProtains",
+                name: "IX_PersonProteins_PersonId",
+                table: "PersonProteins",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonProtains_ProtainId",
-                table: "PersonProtains",
-                column: "ProtainId");
+                name: "IX_PersonProteins_ProteinId",
+                table: "PersonProteins",
+                column: "ProteinId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Persons_TrainerId",
+                table: "Persons",
+                column: "TrainerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonStandards_PersonId",
+                table: "PersonStandards",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonStandards_StandardID",
+                table: "PersonStandards",
+                column: "StandardID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersonTrainers_PersonId",
@@ -245,7 +316,10 @@ namespace BodyBuildingLife.Data.Migrations
                 name: "PersonAssets");
 
             migrationBuilder.DropTable(
-                name: "PersonProtains");
+                name: "PersonProteins");
+
+            migrationBuilder.DropTable(
+                name: "PersonStandards");
 
             migrationBuilder.DropTable(
                 name: "PersonTrainers");
@@ -254,7 +328,10 @@ namespace BodyBuildingLife.Data.Migrations
                 name: "PersonTrainersAsset");
 
             migrationBuilder.DropTable(
-                name: "Protains");
+                name: "Proteins");
+
+            migrationBuilder.DropTable(
+                name: "Standards");
 
             migrationBuilder.DropTable(
                 name: "Persons");

@@ -13,5 +13,5 @@ public  class ProteinForResultDto
     public DateTime UpdateAtt { get; set; }
     public string ValidityPeriod { get; set; }
 
-    public ICollection<ProteinStandardsForResultDto> ProteinStandards { get; set; }
+    public ICollection<PersonStandardForResultDto> ProteinStandards { get; set; }
 }

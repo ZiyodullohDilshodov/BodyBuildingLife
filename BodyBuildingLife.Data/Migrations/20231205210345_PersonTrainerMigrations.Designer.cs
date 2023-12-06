@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BodyBuildingLife.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231126192843_BodyBuildingMigrations")]
-    partial class BodyBuildingMigrations
+    [Migration("20231205210345_PersonTrainerMigrations")]
+    partial class PersonTrainerMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,6 +144,9 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("UpdateAtt")
                         .HasColumnType("datetime2");
 
@@ -153,6 +156,38 @@ namespace BodyBuildingLife.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.PersonStandards.PersonStandard", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreateAtt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("PersonId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StandardID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdateAtt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasIndex("StandardID");
+
+                    b.ToTable("PersonStandards");
                 });
 
             modelBuilder.Entity("BodyBuildingLife.Domain.Entities.PersonTreainers.PersonTrainer", b =>
@@ -216,7 +251,13 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("ProteinId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("SportsCardId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("TrainerId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("UpdateAtt")
@@ -224,10 +265,12 @@ namespace BodyBuildingLife.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TrainerId");
+
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.ProtainPersons.PersonProtain", b =>
+            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.ProtainPersons.PersonProtein", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -244,7 +287,7 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Property<long>("PersonId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProtainId")
+                    b.Property<long>("ProteinId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("UpdateAtt")
@@ -254,12 +297,12 @@ namespace BodyBuildingLife.Data.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("ProtainId");
+                    b.HasIndex("ProteinId");
 
-                    b.ToTable("PersonProtains");
+                    b.ToTable("PersonProteins");
                 });
 
-            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Protains.Protain", b =>
+            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Protains.Protein", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -293,7 +336,38 @@ namespace BodyBuildingLife.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Protains");
+                    b.ToTable("Proteins");
+                });
+
+            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Standards.Standard", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ConsumptionTimes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConsumptionVolume")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateAtt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdateAtt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Standards");
                 });
 
             modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Trainers.Trainer", b =>
@@ -316,6 +390,9 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PasportSerialNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SportsSpecialist")
                         .HasColumnType("nvarchar(max)");
 
@@ -330,7 +407,7 @@ namespace BodyBuildingLife.Data.Migrations
             modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Assets.PersonAsset", b =>
                 {
                     b.HasOne("BodyBuildingLife.Domain.Entities.Persons.Person", "Person")
-                        .WithMany()
+                        .WithMany("PersonAssets")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -341,7 +418,7 @@ namespace BodyBuildingLife.Data.Migrations
             modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Assets.TrainerAsset", b =>
                 {
                     b.HasOne("BodyBuildingLife.Domain.Entities.Trainers.Trainer", "Trainer")
-                        .WithMany()
+                        .WithMany("TrainerAssets")
                         .HasForeignKey("TrainerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -349,10 +426,29 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Navigation("Trainer");
                 });
 
+            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.PersonStandards.PersonStandard", b =>
+                {
+                    b.HasOne("BodyBuildingLife.Domain.Entities.Persons.Person", "Person")
+                        .WithMany("PersonStandards")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BodyBuildingLife.Domain.Entities.Standards.Standard", "Standard")
+                        .WithMany()
+                        .HasForeignKey("StandardID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+
+                    b.Navigation("Standard");
+                });
+
             modelBuilder.Entity("BodyBuildingLife.Domain.Entities.PersonTreainers.PersonTrainer", b =>
                 {
                     b.HasOne("BodyBuildingLife.Domain.Entities.Persons.Person", "Person")
-                        .WithMany()
+                        .WithMany("PersonTrainers")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -366,23 +462,48 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Navigation("Trainer");
                 });
 
-            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.ProtainPersons.PersonProtain", b =>
+            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Persons.Person", b =>
+                {
+                    b.HasOne("BodyBuildingLife.Domain.Entities.Trainers.Trainer", null)
+                        .WithMany("Persons")
+                        .HasForeignKey("TrainerId");
+                });
+
+            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.ProtainPersons.PersonProtein", b =>
                 {
                     b.HasOne("BodyBuildingLife.Domain.Entities.Persons.Person", "Person")
-                        .WithMany()
+                        .WithMany("PersonProteins")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BodyBuildingLife.Domain.Entities.Protains.Protain", "Protain")
+                    b.HasOne("BodyBuildingLife.Domain.Entities.Protains.Protein", "Protein")
                         .WithMany()
-                        .HasForeignKey("ProtainId")
+                        .HasForeignKey("ProteinId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Person");
 
-                    b.Navigation("Protain");
+                    b.Navigation("Protein");
+                });
+
+            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Persons.Person", b =>
+                {
+                    b.Navigation("PersonAssets");
+
+                    b.Navigation("PersonProteins");
+
+                    b.Navigation("PersonStandards");
+
+                    b.Navigation("PersonTrainers");
+                });
+
+            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Trainers.Trainer", b =>
+                {
+                    b.Navigation("Persons");
+
+                    b.Navigation("TrainerAssets");
                 });
 #pragma warning restore 612, 618
         }

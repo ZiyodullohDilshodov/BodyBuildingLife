@@ -1,9 +1,9 @@
 ﻿using BodyBuildingLife.Domain.Commons;
 using BodyBuildingLife.Domain.Entities.Assets;
-using BodyBuildingLife.Domain.Entities.Cards;
-using BodyBuildingLife.Domain.Entities.ProtainPersons;
-using BodyBuildingLife.Domain.Entities.Protains;
 using BodyBuildingLife.Domain.Entities.Standards;
+using BodyBuildingLife.Domain.Entities.ProtainPersons;
+using BodyBuildingLife.Domain.Entities.PersonStandards;
+using BodyBuildingLife.Domain.Entities.PersonTreainers;
 
 namespace BodyBuildingLife.Domain.Entities.Persons;
 
@@ -16,8 +16,8 @@ public class Person : Auditable
     public long SportsCardId { get; set; }
     public string  PasportSeriaNumber { get; set; }
 
-    public ICollection<Card> Cards { get; set; }
-    public ICollection<PersonProtein> Proteins { get; set; }
+    public ICollection<PersonProtein> PersonProteins { get; set; }
     public ICollection<PersonAsset> PersonAssets { get; set; }
-    public ICollection<ProteinStandards> ProteinStandards { get; set; }
+    public ICollection<PersonStandard> PersonStandards { get; set; }
+    public ICollection<PersonTrainer> PersonTrainers { get ; set; }
 }
