@@ -80,9 +80,9 @@ public class PersonService : IPersonService
     {
         var personData = await _personRepository.RetriveAllAsync()
             .Where(person=>person.Id==id)
-            .Include(p=>p.PersonStandards)
+            .Include(p=>p.PersonStandards).ThenInclude(ps=>ps.Standard)
+            .Include(p=>p.PersonProteins).ThenInclude (ps=>ps.Protein)
             .Include(p=>p.PersonAssets)
-            .Include(p=>p.PersonProteins)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

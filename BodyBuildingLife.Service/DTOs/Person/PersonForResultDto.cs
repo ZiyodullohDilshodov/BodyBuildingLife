@@ -19,6 +19,6 @@ public  class PersonForResultDto
 
     public ICollection<PersonProteinForResultDto> PersonProteins { get; set; }
     public ICollection<PersonAssetForResultDto> PersonAssets { get; set; }
-    public ICollection<PersonStandardForResultDto> ProteinStandards { get; set; }
+    public ICollection<PersonStandardForResultDto> PersonStandards { get; set; }
     public ICollection<PersonTrainerForResultDto> PersonTrainers { get; set; }
 }

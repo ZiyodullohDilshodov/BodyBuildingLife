@@ -5,7 +5,10 @@ namespace BodyBuildingLife.Domain.Entities.Standards;
 public  class Standard : Auditable
 {
     public string Description { get; set; }
+    public string ProteinName { get; set; }
     public string ConsumptionTimes { get; set; }
     public string ConsumptionVolume { get; set; }
+    public string ConsumptionTime { get; set; }
+
 
 }

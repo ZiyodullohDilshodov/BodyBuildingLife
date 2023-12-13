@@ -55,8 +55,10 @@ public  class MapperProfile : Profile
 
         CreateMap<Standard, StandardForCreationDto>().ReverseMap();
         CreateMap<Standard, StandardForResultDto>().ReverseMap();
+        CreateMap<Standard, StandardForUpdateDto>().ReverseMap();
 
         CreateMap<PersonStandard, PersonStandardForCreationDto>().ReverseMap();
         CreateMap<PersonStandard, PersonStandardForResultDto>().ReverseMap();
+        CreateMap<PersonStandard, PersonStandardForUpdateDto>().ReverseMap();
     }
 }
