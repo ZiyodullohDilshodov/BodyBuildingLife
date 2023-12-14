@@ -6,10 +6,12 @@ namespace BodyBuildingLife.Api.Middlewares
     public class ExceptionHendlerMiddleware
     {
         private readonly RequestDelegate _next;
-
-        public ExceptionHendlerMiddleware(RequestDelegate next)
+        private readonly ILogger<ExceptionHendlerMiddleware> _logger;
+        private  long logNumber =0;
+        public ExceptionHendlerMiddleware(RequestDelegate next, ILogger<ExceptionHendlerMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task  Invoke(HttpContext context)
@@ -29,6 +31,7 @@ namespace BodyBuildingLife.Api.Middlewares
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{++logNumber}:\t{ex.Message}\n");
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsJsonAsync(new Responses
                 {

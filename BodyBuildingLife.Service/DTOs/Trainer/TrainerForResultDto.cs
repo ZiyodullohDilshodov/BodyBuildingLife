@@ -1,4 +1,5 @@
 ﻿using BodyBuildingLife.Service.DTOs.Person;
+using BodyBuildingLife.Service.DTOs.PersonTrainerDTOs;
 using BodyBuildingLife.Service.DTOs.TrainerAsset;
 
 namespace BodyBuildingLife.Service.DTOs.TrainerDTOs;
@@ -12,6 +13,6 @@ public  class TrainerForResultDto
     public DateTime UpdateAtt { get; set; }
     public string SportsSpecialist { get; set; }
 
-    public ICollection<PersonForResultDto> Persons { get; set; }
+    public ICollection<PersonTrainerForResultDto> Persons { get; set; }
     public ICollection<TrainerAssetForResultDto> TrainerAssets { get; set; }
 }

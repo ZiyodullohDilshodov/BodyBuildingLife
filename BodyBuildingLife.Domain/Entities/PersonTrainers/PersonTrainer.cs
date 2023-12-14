@@ -6,7 +6,7 @@ namespace BodyBuildingLife.Domain.Entities.PersonTreainers;
 
 public  class PersonTrainer : Auditable
 {
-    public long TraionerId { get; set; }
+    public long TrainerID { get; set; }
     public Trainer Trainer { get; set; }
 
     public long PersonId { get; set; }

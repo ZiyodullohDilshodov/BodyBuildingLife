@@ -54,6 +54,7 @@ public class TrainerService : ITrainerService
     {
         var tariners = await _trainerRepository.RetriveAllAsync()
             .Include(ts=>ts.TrainerAssets)
+            .Include(ts=>ts.Persons).ThenInclude(p=>p.Person)
             .AsNoTracking()
             .ToListAsync();
 

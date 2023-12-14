@@ -50,7 +50,7 @@ public class PersonTrainerService : IPersonTrainerService
         var selection = await _personTrainerRepository.RetriveAllAsync().ToListAsync();
         foreach (var item in selection)
         {
-            if(item.TraionerId == forCreationDto.TrainerID && item.PersonId == forCreationDto.PersonID)
+            if(item.TrainerID == forCreationDto.TrainerID && item.PersonId == forCreationDto.PersonID)
                 throw new BodyBuildingLifeException(404, "Person and Trainer already exists");
         }    
 
@@ -112,7 +112,7 @@ public class PersonTrainerService : IPersonTrainerService
         if (personTrainer is null)
             throw new BodyBuildingLifeException(404, "PersonTrainer is not found");
 
-        var mappedPersonTrainer = _mapper.Map<PersonTrainer>(personTrainer);
+        var mappedPersonTrainer = _mapper.Map<PersonTrainer>(forUpdateDto);
         mappedPersonTrainer.UpdateAtt = DateTime.UtcNow;
         var updatePersonTrainer = await _personTrainerRepository.UpdateAsync(mappedPersonTrainer);
 

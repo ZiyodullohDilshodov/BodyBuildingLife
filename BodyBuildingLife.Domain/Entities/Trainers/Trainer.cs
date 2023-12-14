@@ -1,6 +1,6 @@
 ﻿using BodyBuildingLife.Domain.Commons;
 using BodyBuildingLife.Domain.Entities.Assets;
-using BodyBuildingLife.Domain.Entities.Persons;
+using BodyBuildingLife.Domain.Entities.PersonTreainers;
 
 namespace BodyBuildingLife.Domain.Entities.Trainers;
 
@@ -11,7 +11,7 @@ public class Trainer : Auditable
     public  string  SportsSpecialist { get; set; }
 
     public string PasportSerialNumber { get; set; }
-    public ICollection<Person>Persons { get; set; }
+    public ICollection<PersonTrainer>Persons { get; set; }
     public ICollection<TrainerAsset> TrainerAssets { get; set; }
 
    

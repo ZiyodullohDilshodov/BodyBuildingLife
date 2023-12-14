@@ -4,6 +4,7 @@ using BodyBuildingLife.Data.DbContexts;
 using BodyBuildingLife.Service.Helpers;
 using BodyBuildingLife.Service.Mappers;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace BodyBuildingLife.Api
 {
@@ -28,9 +29,17 @@ namespace BodyBuildingLife.Api
             builder.Services.AddAutoMapper(typeof(MapperProfile));
 
             WebHostEnvarement.WebRootPath = Path.GetFullPath("wwwroot");
+            //Logger
+            var logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .Enrich.FromLogContext().CreateLogger();
+            builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(logger);
+
 
             var app = builder.Build();
 
+           
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
