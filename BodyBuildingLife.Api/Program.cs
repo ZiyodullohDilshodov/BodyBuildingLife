@@ -28,6 +28,10 @@ namespace BodyBuildingLife.Api
 
             builder.Services.AddAutoMapper(typeof(MapperProfile));
 
+            builder.Services.AddAuthentication();
+            builder.Services.AddAuthorization();
+            
+
             WebHostEnvarement.WebRootPath = Path.GetFullPath("wwwroot");
             //Logger
             var logger = new LoggerConfiguration()

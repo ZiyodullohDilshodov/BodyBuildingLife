@@ -10,4 +10,5 @@ public  interface IPersonService
     public Task<IEnumerable<PersonForResultDto>> RetrieveAllAsync();
     public Task<PersonForResultDto> UpdateAsync(PersonForUpdateDto forUpdateDto);
     public Task<PersonForResultDto> CreateAsync(PersonForCreationDto forCreationDto);
+    public Task<PersonForResultDto> RtrieveByEmaiil(string email);
 }

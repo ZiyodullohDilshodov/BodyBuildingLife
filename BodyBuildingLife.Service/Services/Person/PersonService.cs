@@ -92,6 +92,20 @@ public class PersonService : IPersonService
 
     }
 
+    public async Task<PersonForResultDto> RtrieveByEmaiil(string email)
+    {
+        var person = await _personRepository.RetriveAllAsync()
+            .Where(person => person.Email == email)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (person is null || person.IsDeleted == true)
+            throw new BodyBuildingLifeException(404, "Person is not found");
+
+        var mapperdPerson = _mapper.Map<PersonForResultDto>(person);
+        return mapperdPerson;
+    }
+
     public async Task<PersonForResultDto> UpdateAsync(PersonForUpdateDto forUpdateDto)
     {
         var personData = await _personRepository.RetriveAllAsync()
