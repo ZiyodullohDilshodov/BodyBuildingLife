@@ -1,8 +1,6 @@
-﻿using BodyBuildingLife.Service.DTOs.CardDTOs;
-using BodyBuildingLife.Service.DTOs.Standards;
+﻿using BodyBuildingLife.Service.DTOs.Standards;
 using BodyBuildingLife.Service.DTOs.PersonAsset;
 using BodyBuildingLife.Service.DTOs.PersonProtainDTOs;
-using BodyBuildingLife.Domain.Entities.PersonTreainers;
 using BodyBuildingLife.Service.DTOs.PersonTrainerDTOs;
 
 namespace BodyBuildingLife.Service.DTOs.Person;
