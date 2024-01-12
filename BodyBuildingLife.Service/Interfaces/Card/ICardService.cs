@@ -10,9 +10,10 @@ public  interface ICardService
     public string Generate4NumberValidityPeriod();
     public Task<CardForResultDto> RetruveByIdAsync(long id);
     public Task<IEnumerable<CardForResultDto>> RetrieveAllAsync();
-    public Task<CardForResultDto> CardBlockUpdateAsync(CardForUpdateDto forUpdateDto);
     public Task<CardForResultDto> CreateAsync(CardForCreationDto forCreationDto);
-    public Task<bool>CardBlocSolving(PaymentOfCardBalansCreationDto cardBlocSolvingDto);
-    public Task<bool> CardBlocking(PaymentOfCardBalansCreationDto cardBlockingDto);
+    public Task<bool> CardBlocking(CardBlockForCreationDto cardBlockingDto);
+    public Task<CardForResultDto> CardIsBlockingAsync(CardForUpdateDto forUpdateDto);
+    public Task<bool>CardBlockSolving(CardBlockForCreationDto cardBlocSolvingDto);
+    public  Task<CardForResultDto> CardIsUnBlockAsync(CardForUpdateDto forUpdateDto);
 
 }

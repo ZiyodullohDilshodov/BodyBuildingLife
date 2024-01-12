@@ -18,6 +18,7 @@ using BodyBuildingLife.Service.DTOs.PersonProtainDTOs;
 using BodyBuildingLife.Service.DTOs.PersonTrainerDTOs;
 using BodyBuildingLife.Domain.Entities.PersonTreainers;
 using BodyBuildingLife.Domain.Entities.PersonStandards;
+using BodyBuildingLife.Service.DTOs.Card;
 
 namespace BodyBuildingLife.Service.Mappers;
 
@@ -60,5 +61,9 @@ public  class MapperProfile : Profile
         CreateMap<PersonStandard, PersonStandardForCreationDto>().ReverseMap();
         CreateMap<PersonStandard, PersonStandardForResultDto>().ReverseMap();
         CreateMap<PersonStandard, PersonStandardForUpdateDto>().ReverseMap();
+        CreateMap<CardForUpdateDto, CardBlockForCreationDto>().ReverseMap();
+
+
+       
     }
 }

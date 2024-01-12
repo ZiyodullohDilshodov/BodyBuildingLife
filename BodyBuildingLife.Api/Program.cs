@@ -16,7 +16,9 @@ namespace BodyBuildingLife.Api
 
             builder.Services.AddDbContext<AppDbContext>(option => 
                 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-          
+
+           
+
             // Add services to the container.
             builder.Services.AddCustomerService();
 

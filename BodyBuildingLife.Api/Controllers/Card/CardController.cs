@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BodyBuildingLife.Service.DTOs.CardDTOs;
 using BodyBuildingLife.Service.Interfaces.Card;
+using BodyBuildingLife.Service.DTOs.Card;
+using BodyBuildingLife.Service.Interfaces.PaymentOfCardBalanses;
 namespace BodyBuildingLife.Api.Controllers.Card;
 
 
@@ -8,10 +10,12 @@ public class CardController : BaseController
 {
     
     private readonly ICardService _cardService;
+    private readonly IPaymentOfCardBalansService _paymentOfCardBalansService;
 
-    public CardController(ICardService cardService)
+    public CardController(ICardService cardService, IPaymentOfCardBalansService paymentOfCardBalansService)
     {
         _cardService = cardService;
+        _paymentOfCardBalansService = paymentOfCardBalansService;
     }
 
     [HttpGet("{card-id}")]
@@ -41,5 +45,21 @@ public class CardController : BaseController
         var card = await _cardService.DeleteAsync(id);
         return Ok(card);
     }
+
+    [HttpPatch("fill")]
+    public async Task<IActionResult> FillTheCardAsync([FromBody] PaymentOfCardBalansCreationDto paymentOfCardBalansCreationDto)
+        => Ok(await _paymentOfCardBalansService.FillTheMoneyFromCard(paymentOfCardBalansCreationDto));
+
+    [HttpPatch("Solve")]
+    public async Task<IActionResult> SolvetheMoneyAsync([FromBody] PaymentOfCardBalansCreationDto paymentOfCardBalansCreationDto)
+        => Ok(await _paymentOfCardBalansService.SolveTheMoneyFromCard(paymentOfCardBalansCreationDto));
+
+    [HttpPatch("Block")]
+    public async Task<IActionResult> CardBlockAsync([FromBody]CardBlockForCreationDto cardBlockForCreationDto)
+        =>Ok(await _cardService.CardBlocking(cardBlockForCreationDto));
+
+    [HttpPatch("UnBlock")]
+    public async Task<IActionResult> SolveCardBlockAsync([FromBody]CardBlockForCreationDto solveCardBlocking)
+        =>Ok(await _cardService.CardBlockSolving(solveCardBlocking));
 
 }

@@ -18,6 +18,8 @@ using BodyBuildingLife.Service.Interfaces.PersonProtain;
 using BodyBuildingLife.Service.Services.PersonStandards;
 using BodyBuildingLife.Service.Interfaces.PersonTrainer;
 using BodyBuildingLife.Service.Interfaces.PersonStandards;
+using BodyBuildingLife.Service.Interfaces.PaymentOfCardBalanses;
+using BodyBuildingLife.Service.Services.PaymentOfCardBalanses;
 
 namespace BodyBuildingLife.Api.Exctension
 {
@@ -59,6 +61,8 @@ namespace BodyBuildingLife.Api.Exctension
 
             service.AddScoped<IPersonStandardsService,PersonStandardService>();
             service.AddScoped<IStandardsService, StandardsService>();
+
+            service.AddScoped<IPaymentOfCardBalansService,PaymentOfCardBalansService>();
 
 
         }

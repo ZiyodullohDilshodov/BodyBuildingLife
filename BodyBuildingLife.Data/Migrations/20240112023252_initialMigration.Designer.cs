@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BodyBuildingLife.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231205210345_PersonTrainerMigrations")]
-    partial class PersonTrainerMigrations
+    [Migration("20240112023252_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -138,12 +138,6 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Property<long>("Money")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("PasportSeriaNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
@@ -207,10 +201,7 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Property<long>("PersonId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("TrainerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("TraionerId")
+                    b.Property<long>("TrainerID")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("UpdateAtt")
@@ -220,7 +211,7 @@ namespace BodyBuildingLife.Data.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("TrainerId");
+                    b.HasIndex("TrainerID");
 
                     b.ToTable("PersonTrainers");
                 });
@@ -235,6 +226,9 @@ namespace BodyBuildingLife.Data.Migrations
 
                     b.Property<DateTime>("CreateAtt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -257,15 +251,10 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Property<long>("SportsCardId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("TrainerId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("UpdateAtt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TrainerId");
 
                     b.ToTable("Persons");
                 });
@@ -347,6 +336,9 @@ namespace BodyBuildingLife.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("ConsumptionTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConsumptionTimes")
                         .HasColumnType("nvarchar(max)");
 
@@ -361,6 +353,9 @@ namespace BodyBuildingLife.Data.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ProteinName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdateAtt")
                         .HasColumnType("datetime2");
@@ -454,19 +449,14 @@ namespace BodyBuildingLife.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("BodyBuildingLife.Domain.Entities.Trainers.Trainer", "Trainer")
-                        .WithMany()
-                        .HasForeignKey("TrainerId");
+                        .WithMany("Persons")
+                        .HasForeignKey("TrainerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Person");
 
                     b.Navigation("Trainer");
-                });
-
-            modelBuilder.Entity("BodyBuildingLife.Domain.Entities.Persons.Person", b =>
-                {
-                    b.HasOne("BodyBuildingLife.Domain.Entities.Trainers.Trainer", null)
-                        .WithMany("Persons")
-                        .HasForeignKey("TrainerId");
                 });
 
             modelBuilder.Entity("BodyBuildingLife.Domain.Entities.ProtainPersons.PersonProtein", b =>

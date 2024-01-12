@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using BodyBuildingLife.Service.DTOs.Card;
 using BodyBuildingLife.Data.IRepositories;
 using BodyBuildingLife.Service.Exceptions;
-using BodyBuildingLife.Domain.Entities.Cards;
 using BodyBuildingLife.Service.DTOs.CardDTOs;
 using BodyBuildingLife.Service.Interfaces.Card;
-using BodyBuildingLife.Service.DTOs.Card;
+using BodyBuildingLife.Domain.Entities.Cards;
 
 namespace BodyBuildingLife.Service.Services;
 
@@ -24,22 +24,44 @@ public class CardService : ICardService
 
     }
 
-    public async Task<bool> CardBlocking(PaymentOfCardBalansCreationDto cardBlockingDto)
+    public async Task<bool> CardBlocking(CardBlockForCreationDto cardBlockingDto)
     {
-        var mappedCard = _mapper.Map<CardForUpdateDto>(cardBlockingDto);
+        var card = await _cardRepository.RetriveAllAsync()
+           .Where(c => c.CardNumber == cardBlockingDto.CardNumber && c.ValidityPeriod == cardBlockingDto.ValidityPeriod)
+           .AsNoTracking()
+           .FirstOrDefaultAsync();
+
+        if (card is null || card.IsDeleted == true)
+            throw new BodyBuildingLifeException(404, "Card is not found");
+
+        if (card.CardIsBloced == true)
+            throw new BodyBuildingLifeException(401, "Card is bLocked already");
+
+        var mappedCard = _mapper.Map<CardForUpdateDto>(card);
         mappedCard.CardIsBloced = true ;
-        var result = await CardBlockUpdateAsync(mappedCard);
+        var result = await CardIsBlockingAsync(mappedCard);
 
         if (result.CardIsBloced == true )
             return  true  ;
         return false  ;
     }
 
-    public async Task<bool> CardBlocSolving(PaymentOfCardBalansCreationDto cardBlocSolvingDto)
+    public async Task<bool> CardBlockSolving(CardBlockForCreationDto cardBlocSolvingDto)
     {
+        var card = await _cardRepository.RetriveAllAsync()
+          .Where(c => c.CardNumber == cardBlocSolvingDto.CardNumber && c.ValidityPeriod == cardBlocSolvingDto.ValidityPeriod)
+          .AsNoTracking()
+          .FirstOrDefaultAsync();
+
+        if (card is null || card.IsDeleted == true)
+            throw new BodyBuildingLifeException(404, "Card is not found");
+
+        if (card.CardIsBloced != true)
+            throw new BodyBuildingLifeException(401, "Card is not bLocked already");
+
         var mappedCard = _mapper.Map<CardForUpdateDto>(cardBlocSolvingDto);
         mappedCard.CardIsBloced = false;
-        var result = await CardBlockUpdateAsync(mappedCard);
+        var result = await CardIsUnBlockAsync(mappedCard);
 
         if (result.CardIsBloced == false)
             return true;
@@ -163,13 +185,13 @@ public class CardService : ICardService
         if (searchCard == null || searchCard.IsDeleted == true)
            throw  new BodyBuildingLifeException(404, "Card is not found");
 
-        if (searchCard.CardIsBloced = true)
+        if (searchCard.CardIsBloced == true)
             throw new BodyBuildingLifeException(401, "Card is bLocked");
 
         return _mapper.Map<CardForResultDto>(searchCard);
     }
 
-    public async Task<CardForResultDto> CardBlockUpdateAsync(CardForUpdateDto forUpdateDto)
+    public async Task<CardForResultDto> CardIsBlockingAsync(CardForUpdateDto forUpdateDto)
     {
         var card = await _cardRepository.RetriveAllAsync()
             .Where(c => c.CardNumber == forUpdateDto.CardNumber && c.ValidityPeriod == forUpdateDto.ValidityPeriod)
@@ -179,11 +201,31 @@ public class CardService : ICardService
         if (card is null || card.IsDeleted == true)
             throw new BodyBuildingLifeException(404, "Card is not found");
 
-        if (card.CardIsBloced = true)
-            throw new BodyBuildingLifeException(401, "Card is bLocked");
+        if (card.CardIsBloced == true)
+            throw new BodyBuildingLifeException(400, "Card is already Blocked");
+       
+        var mappedCard =  _mapper.Map<Card>(card);
+        mappedCard.CardIsBloced = true ;
+        mappedCard.UpdateAtt = DateTime.UtcNow;
 
-        var mappedCard =  _mapper.Map<Card>(forUpdateDto);
-        mappedCard.Id = card.Id;
+        return _mapper.Map<CardForResultDto>(await _cardRepository.UpdateAsync(mappedCard));
+    }
+
+    public async Task<CardForResultDto> CardIsUnBlockAsync(CardForUpdateDto forUpdateDto)
+    {
+        var card = await _cardRepository.RetriveAllAsync()
+            .Where(c => c.CardNumber == forUpdateDto.CardNumber && c.ValidityPeriod == forUpdateDto.ValidityPeriod)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (card is null || card.IsDeleted == true)
+            throw new BodyBuildingLifeException(404, "Card is not found");
+
+        if (card.CardIsBloced == false)
+            throw new BodyBuildingLifeException(400, "Card is already Blocked");
+
+        var mappedCard = _mapper.Map<Card>(card);
+        mappedCard.CardIsBloced = false;
         mappedCard.UpdateAtt = DateTime.UtcNow;
 
         return _mapper.Map<CardForResultDto>(await _cardRepository.UpdateAsync(mappedCard));

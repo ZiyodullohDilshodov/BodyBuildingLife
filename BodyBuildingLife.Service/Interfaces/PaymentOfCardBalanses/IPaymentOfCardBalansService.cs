@@ -5,5 +5,6 @@ namespace BodyBuildingLife.Service.Interfaces.PaymentOfCardBalanses;
 
 public  interface IPaymentOfCardBalansService
 {
-    public Task<CardForResultDto> FillTheCard(PaymentOfCardBalansCreationDto paymentOfCardBalanceForCreationDto);
+    public Task<CardForResultDto> SolveTheMoneyFromCard(PaymentOfCardBalansCreationDto paymentOfCardBalansCreationDto);
+    public Task<CardForResultDto> FillTheMoneyFromCard(PaymentOfCardBalansCreationDto paymentOfCardBalanceForCreationDto);
 }

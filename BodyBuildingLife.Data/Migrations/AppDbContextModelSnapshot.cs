@@ -135,12 +135,6 @@ namespace BodyBuildingLife.Data.Migrations
                     b.Property<long>("Money")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("PasportSeriaNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 

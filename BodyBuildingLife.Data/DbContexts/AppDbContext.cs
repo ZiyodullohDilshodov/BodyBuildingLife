@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using BodyBuildingLife.Domain.Entities.Cards;
 using BodyBuildingLife.Domain.Entities.Assets;
 using BodyBuildingLife.Domain.Entities.Persons;
 using BodyBuildingLife.Domain.Entities.Protains;
@@ -8,6 +7,7 @@ using BodyBuildingLife.Domain.Entities.Standards;
 using BodyBuildingLife.Domain.Entities.ProtainPersons;
 using BodyBuildingLife.Domain.Entities.PersonTreainers;
 using BodyBuildingLife.Domain.Entities.PersonStandards;
+using BodyBuildingLife.Domain.Entities.Cards;
 
 namespace BodyBuildingLife.Data.DbContexts;
 
