@@ -5,6 +5,7 @@ using BodyBuildingLife.Service.Exceptions;
 using BodyBuildingLife.Domain.Entities.Cards;
 using BodyBuildingLife.Service.DTOs.CardDTOs;
 using BodyBuildingLife.Service.Interfaces.Card;
+using BodyBuildingLife.Service.DTOs.Card;
 
 namespace BodyBuildingLife.Service.Services;
 
@@ -21,6 +22,28 @@ public class CardService : ICardService
         this._cardRepository = cardRepository;
         this._personService = personService;
 
+    }
+
+    public async Task<bool> CardBlocking(PaymentOfCardBalansCreationDto cardBlockingDto)
+    {
+        var mappedCard = _mapper.Map<CardForUpdateDto>(cardBlockingDto);
+        mappedCard.CardIsBloced = true ;
+        var result = await CardBlockUpdateAsync(mappedCard);
+
+        if (result.CardIsBloced == true )
+            return  true  ;
+        return false  ;
+    }
+
+    public async Task<bool> CardBlocSolving(PaymentOfCardBalansCreationDto cardBlocSolvingDto)
+    {
+        var mappedCard = _mapper.Map<CardForUpdateDto>(cardBlocSolvingDto);
+        mappedCard.CardIsBloced = false;
+        var result = await CardBlockUpdateAsync(mappedCard);
+
+        if (result.CardIsBloced == false)
+            return true;
+        return false;
     }
 
     public async Task<CardForResultDto> CreateAsync(CardForCreationDto forCreationDto)
@@ -90,32 +113,34 @@ public class CardService : ICardService
 
             number[i] = digit;
         }
-        return number.ToString();
+        return string.Join("",number);
     }
 
     public string Generate4NumberValidityPeriod()
     {
-         Random random = new Random();
+        Random random = new Random();
 
-            int[] number_1 = new int[2];
-            for(int i = 1;i<2;i++)
-            {
-                int digit = random.Next(10);
-                number_1[i] = digit;
-            }
+        int[] number_1 = new int[2];
+        for (int i = 0; i < 2; i++)
+        {
+            int digit = random.Next(10);
+            number_1[i] = digit;
+        }
 
-            int[] number_2 = new int[2];
-            for (int i = 1; i < 2; i++)
-            {
-                int digit = random.Next(10);
-                number_2[i] = digit;
-            }
+        int[] number_2 = new int[2];
+        for (int i = 0; i < 2; i++)
+        {
+            int digit = random.Next(10);
+            number_2[i] = digit;
+        }
 
-            string validityPeriodNumber = number_1.ToString() + "/" + number_2.ToString();
+        string validityPeriodNumber = string.Join("", number_1) + '/' + string.Join("", number_2);
 
-            return validityPeriodNumber;
+        return validityPeriodNumber;
     }
 
+
+    
     public async Task<IEnumerable<CardForResultDto>> RetrieveAllAsync()
     {
         var cardData =await _cardRepository.RetriveAllAsync()
@@ -135,15 +160,32 @@ public class CardService : ICardService
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-        if (searchCard == null)
+        if (searchCard == null || searchCard.IsDeleted == true)
            throw  new BodyBuildingLifeException(404, "Card is not found");
+
+        if (searchCard.CardIsBloced = true)
+            throw new BodyBuildingLifeException(401, "Card is bLocked");
 
         return _mapper.Map<CardForResultDto>(searchCard);
     }
 
-    public Task<CardForResultDto> UpdateAsync(CardForUpdateDto forUpdateDto)
+    public async Task<CardForResultDto> CardBlockUpdateAsync(CardForUpdateDto forUpdateDto)
     {
-        //To Do LOGIC
-        throw new NotImplementedException();
+        var card = await _cardRepository.RetriveAllAsync()
+            .Where(c => c.CardNumber == forUpdateDto.CardNumber && c.ValidityPeriod == forUpdateDto.ValidityPeriod)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (card is null || card.IsDeleted == true)
+            throw new BodyBuildingLifeException(404, "Card is not found");
+
+        if (card.CardIsBloced = true)
+            throw new BodyBuildingLifeException(401, "Card is bLocked");
+
+        var mappedCard =  _mapper.Map<Card>(forUpdateDto);
+        mappedCard.Id = card.Id;
+        mappedCard.UpdateAtt = DateTime.UtcNow;
+
+        return _mapper.Map<CardForResultDto>(await _cardRepository.UpdateAsync(mappedCard));
     }
 }

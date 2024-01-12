@@ -8,6 +8,7 @@ public  class CardForResultDto
     public string FirstName { get; set; }
     public string CardNumber { get; set; }
     public string ValidityPeriod { get; set; }
+    public bool CardIsBloced { get; set; }
     public DateTime CreateAtt { get; set; }
     public DateTime UpdateAtt { get; set; }
     

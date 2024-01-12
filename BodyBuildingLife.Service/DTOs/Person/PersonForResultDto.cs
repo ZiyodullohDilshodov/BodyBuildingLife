@@ -12,7 +12,6 @@ public  class PersonForResultDto
     public string LastName { get; set; }
     public string FirstName { get; set; }
     public long SportsCardId { get; set; }
-    public long ProteinId { get; set; }
     public DateTime CreateAtt { get; set; }
     public DateTime UpdateAtt { get; set; }
 
